@@ -8,9 +8,11 @@ import CategoryBreakdown from "../components/Dashboard/CategoryBreakdown";
 import SpendingChart from "../components/Dashboard/SpendingChart";
 import WeeklyComparison from "../components/Dashboard/WeeklyComparison";
 import SkeletonLoader from "../components/Shared/SkeletonLoader";
+import { useAuthStore } from "../store/authStore";
 
 export default function DashboardPage() {
   const { openExpenseModal, openIncomeModal, openQuickAddModal } = useOutletContext();
+  const { user } = useAuthStore();
 
   const summaryQuery = useQuery({
     queryKey: ["dashboard-summary"],
@@ -24,14 +26,16 @@ export default function DashboardPage() {
     <div className="page-enter">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-incomeLight/70">Money command center</p>
-          <h1 className="mt-3 text-2xl font-black text-text sm:text-4xl">See your money move clearly.</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-muted sm:leading-7">
+          <p className="text-xs uppercase tracking-[0.28em] text-incomeLight/70 sm:hidden">Welcome back</p>
+          <p className="text-sm text-muted sm:hidden">{user?.email}</p>
+          <p className="hidden text-xs uppercase tracking-[0.28em] text-incomeLight/70 sm:block">Money command center</p>
+          <h1 className="mt-2 text-xl font-black text-text sm:mt-3 sm:text-4xl">See your money move clearly.</h1>
+          <p className="hidden text-sm leading-6 text-muted sm:mt-3 sm:block sm:max-w-2xl sm:leading-7">
             Balance, spending momentum, and habit signals all in one place.
           </p>
         </div>
 
-        <div className="grid gap-3 sm:flex sm:flex-wrap">
+        <div className="hidden gap-3 sm:flex sm:flex-wrap md:grid">
           <button
             type="button"
             onClick={() => openExpenseModal()}
@@ -91,7 +95,7 @@ export default function DashboardPage() {
             />
           </div>
 
-          <div className="mt-6 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+          <div className="mt-3 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
             <CategoryBreakdown items={summaryQuery.data?.categoryBreakdown || []} />
             <WeeklyComparison comparison={summaryQuery.data?.weeklyComparison} />
           </div>

@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 
 const Income = require("../models/Income");
 const Transaction = require("../models/Transaction");
+const { getDayBoundsInIST } = require("../utils/date");
 
 const parseValidation = (req) => {
   const errors = validationResult(req);
@@ -34,14 +35,22 @@ const createIncome = async (req, res, next) => {
       throw error;
     }
 
-    const recordedAt = req.body.date ? new Date(req.body.date) : new Date();
+    // Properly handle date: if date string is provided, use getDayBoundsInIST to get the correct bounds
+    let recordedDate;
+    if (req.body.date) {
+      const { start } = getDayBoundsInIST(new Date(req.body.date + "T00:00:00"));
+      recordedDate = start;
+    } else {
+      recordedDate = new Date();
+    }
+
     const transaction = await Transaction.create({
       userId: req.user.id,
       type: "income",
       amount: Number(req.body.amount),
       reason: req.body.sourceName,
       category: "Other",
-      date: recordedAt,
+      date: recordedDate,
       note: req.body.note || "",
     });
 
@@ -51,7 +60,7 @@ const createIncome = async (req, res, next) => {
       amount: Number(req.body.amount),
       isRecurring: Boolean(req.body.isRecurring),
       recurringDayOfMonth: req.body.isRecurring ? Number(req.body.recurringDayOfMonth) : null,
-      recordedAt,
+      recordedAt: recordedDate,
       transactionId: transaction._id,
     });
 
@@ -94,7 +103,12 @@ const updateIncome = async (req, res, next) => {
     income.recurringDayOfMonth = income.isRecurring
       ? Number(req.body.recurringDayOfMonth ?? income.recurringDayOfMonth ?? 1)
       : null;
-    income.recordedAt = req.body.date ? new Date(req.body.date) : income.recordedAt;
+    
+    if (req.body.date) {
+      const { start } = getDayBoundsInIST(new Date(req.body.date + "T00:00:00"));
+      income.recordedAt = start;
+    }
+    
     await income.save();
 
     if (income.transactionId) {

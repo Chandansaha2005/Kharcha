@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const Income = require("../models/Income");
 const PendingExpense = require("../models/PendingExpense");
 const Transaction = require("../models/Transaction");
-const { formatDateKey, getDayBoundsFromKey, getMonthBoundsInIST } = require("../utils/date");
+const { formatDateKey, getDayBoundsFromKey, getMonthBoundsInIST, getDayBoundsInIST } = require("../utils/date");
 
 const parseValidation = (req) => {
   const errors = validationResult(req);
@@ -33,13 +33,23 @@ const addTransaction = async (req, res, next) => {
   try {
     parseValidation(req);
 
+    // Properly handle date: if date string is provided, use getDayBoundsInIST to get the correct bounds
+    let transactionDate;
+    if (req.body.date) {
+      // Parse the date string "YYYY-MM-DD" format
+      const { start } = getDayBoundsInIST(new Date(req.body.date + "T00:00:00"));
+      transactionDate = start;
+    } else {
+      transactionDate = new Date();
+    }
+
     const transaction = await Transaction.create({
       userId: req.user.id,
       type: req.body.type,
       amount: Number(req.body.amount),
       reason: req.body.reason,
       category: req.body.category,
-      date: req.body.date ? new Date(req.body.date) : new Date(),
+      date: transactionDate,
       note: req.body.note || "",
     });
 
@@ -116,7 +126,8 @@ const updateTransaction = async (req, res, next) => {
       }, {});
 
     if (req.body.date) {
-      updates.date = new Date(req.body.date);
+      const { start } = getDayBoundsInIST(new Date(req.body.date + "T00:00:00"));
+      updates.date = start;
     }
 
     Object.assign(transaction, updates);
@@ -199,13 +210,22 @@ const convertPendingExpense = async (req, res, next) => {
       throw error;
     }
 
+    // Properly handle date: if date string is provided, use getDayBoundsInIST to get the correct bounds
+    let transactionDate;
+    if (req.body.date) {
+      const { start } = getDayBoundsInIST(new Date(req.body.date + "T00:00:00"));
+      transactionDate = start;
+    } else {
+      transactionDate = new Date();
+    }
+
     const transaction = await Transaction.create({
       userId: req.user.id,
       type: "expense",
       amount: Number(req.body.amount || pendingExpense.amount),
       reason: req.body.reason,
       category: req.body.category,
-      date: req.body.date ? new Date(req.body.date) : new Date(),
+      date: transactionDate,
       note: req.body.note !== undefined ? req.body.note : pendingExpense.note,
       isPending: false,
     });
