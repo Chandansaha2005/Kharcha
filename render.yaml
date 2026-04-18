@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: kharcha-backend
+    rootDir: backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        scope: build,runtime
+      - key: JWT_SECRET
+        scope: build,runtime
+      - key: EMAIL_USER
+        scope: build,runtime
+      - key: EMAIL_PASS
+        scope: build,runtime
+      - key: OWNER_EMAIL
+        scope: build,runtime
+      - key: PORT
+        value: 5000
+      - key: FRONTEND_URL
+        value: https://kharcha-pani.vercel.app
+      - key: APP_NAME
+        value: Kharcha
+      - key: NODE_ENV
+        value: production
