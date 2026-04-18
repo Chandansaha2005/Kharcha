@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Filter, Plus } from "lucide-react";
+import { CalendarRange, ChevronDown, ChevronLeft, ChevronRight, Filter, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -8,7 +8,13 @@ import TransactionList from "../components/Transactions/TransactionList";
 import SkeletonLoader from "../components/Shared/SkeletonLoader";
 import { useToast } from "../components/Shared/ToastProvider";
 import { useTransactions } from "../hooks/useTransactions";
-import { CATEGORY_OPTIONS, getYearOptions, monthOptions } from "../utils/formatters";
+import { CATEGORY_OPTIONS, formatMonthYear, getYearOptions, monthOptions } from "../utils/formatters";
+
+const typeOptions = [
+  { value: "all", label: "All types" },
+  { value: "expense", label: "Expenses" },
+  { value: "income", label: "Income" },
+];
 
 export default function TransactionsPage() {
   const { openExpenseModal } = useOutletContext();
@@ -19,6 +25,11 @@ export default function TransactionsPage() {
   const [year, setYear] = useState(today.getFullYear());
   const [category, setCategory] = useState("all");
   const [type, setType] = useState("all");
+  const [mobilePanel, setMobilePanel] = useState(null);
+  const selectedMonthDate = new Date(year, month - 1, 1);
+  const mobileMonthLabel = formatMonthYear(selectedMonthDate);
+  const selectedTypeLabel = typeOptions.find((option) => option.value === type)?.label || "All types";
+  const selectedCategoryLabel = category === "all" ? "All categories" : category;
 
   const filters = useMemo(
     () => ({
@@ -49,8 +60,10 @@ export default function TransactionsPage() {
     <div className="page-enter">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-muted">Transaction log</p>
-          <h1 className="mt-3 text-2xl font-black text-text sm:text-3xl">Every move, grouped by day.</h1>
+          <p className="text-[13px] font-black uppercase tracking-[0.24em] text-muted sm:text-xs sm:tracking-[0.28em]">
+            Transaction log
+          </p>
+          <h1 className="mt-3 text-[1.85rem] font-black leading-tight text-text sm:text-3xl">Every move, grouped by day.</h1>
         </div>
         <button
           type="button"
@@ -67,7 +80,151 @@ export default function TransactionsPage() {
           <Filter size={16} />
           <span>Filters</span>
         </div>
-        <div className="grid gap-3 md:grid-cols-4">
+        <div className="space-y-4 sm:hidden">
+          <div>
+            <button
+              type="button"
+              onClick={() => setMobilePanel((current) => (current === "month" ? null : "month"))}
+              className="flex w-full items-center justify-between rounded-[24px] border border-border bg-surface2 px-4 py-4 text-left"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-accent/15 text-accent">
+                  <CalendarRange size={18} />
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-muted">Date</p>
+                  <p className="mt-1 text-sm font-black text-text">{mobileMonthLabel}</p>
+                </div>
+              </div>
+              <ChevronDown size={18} className={`${mobilePanel === "month" ? "rotate-180" : ""} text-muted`} />
+            </button>
+
+            {mobilePanel === "month" ? (
+              <div className="mt-3 rounded-[24px] border border-border bg-surface2 p-4">
+                <div className="flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setYear((current) => current - 1)}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-surface text-muted"
+                    aria-label="Previous year"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <p className="text-sm font-black text-text">{year}</p>
+                  <button
+                    type="button"
+                    onClick={() => setYear((current) => current + 1)}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-surface text-muted"
+                    aria-label="Next year"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  {monthOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => {
+                        setMonth(option.value);
+                        setMobilePanel(null);
+                      }}
+                      className={`rounded-2xl px-3 py-3 text-sm font-black ${
+                        month === option.value
+                          ? "bg-income text-black shadow-income"
+                          : "border border-border bg-surface text-muted"
+                      }`}
+                    >
+                      {option.label.slice(0, 3)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setMobilePanel((current) => (current === "type" ? null : "type"))}
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-black ${
+                mobilePanel === "type" ? "border-income/40 bg-income text-black" : "border-border bg-surface2 text-text"
+              }`}
+            >
+              <span>Type</span>
+              <span className="text-xs opacity-75">{selectedTypeLabel}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobilePanel((current) => (current === "category" ? null : "category"))}
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-black ${
+                mobilePanel === "category" ? "border-accent/40 bg-accent text-black" : "border-border bg-surface2 text-text"
+              }`}
+            >
+              <span>Category</span>
+              <span className="text-xs opacity-75">{selectedCategoryLabel}</span>
+            </button>
+          </div>
+
+          {mobilePanel === "type" ? (
+            <div className="flex flex-wrap gap-2 rounded-[24px] border border-border bg-surface2 p-4">
+              {typeOptions.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => {
+                    setType(option.value);
+                    setMobilePanel(null);
+                  }}
+                  className={`rounded-full border px-4 py-2.5 text-sm font-black ${
+                    type === option.value
+                      ? option.value === "expense"
+                        ? "border-expense/40 bg-expense text-white"
+                        : "border-income/40 bg-income text-black"
+                      : "border-border bg-surface text-muted"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          {mobilePanel === "category" ? (
+            <div className="flex flex-wrap gap-2 rounded-[24px] border border-border bg-surface2 p-4">
+              <button
+                type="button"
+                onClick={() => {
+                  setCategory("all");
+                  setMobilePanel(null);
+                }}
+                className={`rounded-full border px-4 py-2.5 text-sm font-black ${
+                  category === "all" ? "border-accent/40 bg-accent text-black" : "border-border bg-surface text-muted"
+                }`}
+              >
+                All categories
+              </button>
+              {CATEGORY_OPTIONS.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => {
+                    setCategory(option);
+                    setMobilePanel(null);
+                  }}
+                  className={`rounded-full border px-4 py-2.5 text-sm font-black ${
+                    category === option ? "border-income/40 bg-income text-black" : "border-border bg-surface text-muted"
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="hidden gap-3 sm:grid md:grid-cols-4">
           <select
             value={month}
             onChange={(event) => setMonth(Number(event.target.value))}

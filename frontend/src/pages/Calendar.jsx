@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import api from "../api/axios";
 import CalendarView from "../components/Calendar/CalendarView";
-import DayDetailModal from "../components/Calendar/DayDetailModal";
+import DayTransactionsPanel from "../components/Calendar/DayTransactionsPanel";
 import SkeletonLoader from "../components/Shared/SkeletonLoader";
 
 export default function CalendarPage() {
@@ -26,8 +26,12 @@ export default function CalendarPage() {
   return (
     <div className="page-enter">
       <div>
-        <p className="text-xs uppercase tracking-[0.28em] text-muted">Calendar overview</p>
-        <h1 className="mt-3 text-2xl font-black text-text sm:text-3xl">See income and spending day by day.</h1>
+        <p className="text-[13px] font-black uppercase tracking-[0.24em] text-muted sm:text-xs sm:tracking-[0.28em]">
+          Calendar overview
+        </p>
+        <h1 className="mt-3 text-[1.85rem] font-black leading-tight text-text sm:text-3xl">
+          See income and spending day by day.
+        </h1>
       </div>
 
       <div className="mt-6">
@@ -39,11 +43,14 @@ export default function CalendarPage() {
             onMonthChange={setCurrentMonth}
             calendarData={calendarQuery.data || {}}
             onSelectDate={setSelectedDate}
+            selectedDate={selectedDate}
           />
         )}
       </div>
 
-      {selectedDate ? <DayDetailModal date={selectedDate} onClose={() => setSelectedDate(null)} /> : null}
+      <div className="mt-5">
+        <DayTransactionsPanel date={selectedDate} onClear={() => setSelectedDate(null)} />
+      </div>
     </div>
   );
 }

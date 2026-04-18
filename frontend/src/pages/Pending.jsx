@@ -35,8 +35,12 @@ export default function PendingPage() {
       <div className="flex items-center gap-3">
         <Clock3 className="text-accent" size={22} />
         <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-muted">Pending expenses</p>
-          <h1 className="mt-2 text-2xl font-black text-text sm:text-3xl">Save now, fill in details later.</h1>
+          <p className="text-[13px] font-black uppercase tracking-[0.24em] text-muted sm:text-xs sm:tracking-[0.28em]">
+            Pending expenses
+          </p>
+          <h1 className="mt-3 text-[1.85rem] font-black leading-tight text-text sm:mt-2 sm:text-3xl">
+            Save now, fill in details later.
+          </h1>
         </div>
       </div>
 

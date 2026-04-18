@@ -11,15 +11,15 @@ export default function CategoryBreakdown({ items = [] }) {
   }, [items]);
 
   return (
-    <section className="rounded-[28px] border border-border bg-surface p-6 transition-colors duration-200 hover:border-expense/40">
+    <section className="rounded-[24px] border border-border bg-surface p-5 transition-colors duration-200 hover:border-expense/40 sm:rounded-[28px] sm:p-6">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-muted">Spending by category</p>
-          <h2 className="mt-2 text-xl font-black text-text">Where the month is going</h2>
+          <h2 className="mt-2 text-lg font-black text-text sm:text-xl">Where the month is going</h2>
         </div>
       </div>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-5 space-y-4 sm:mt-6">
         {items.length ? (
           items.map((item, index) => (
             <div
@@ -43,7 +43,7 @@ export default function CategoryBreakdown({ items = [] }) {
             </div>
           ))
         ) : (
-          <div className="rounded-3xl border border-border bg-surface2 px-4 py-6 text-sm text-muted">
+          <div className="rounded-[24px] border border-border bg-surface2 px-4 py-5 text-sm text-muted sm:rounded-3xl sm:py-6">
             No spending categories yet for this month.
           </div>
         )}

@@ -4,18 +4,18 @@ import { formatCurrency } from "../../utils/formatters";
 
 export default function SpendingChart({ items = [] }) {
   return (
-    <section className="rounded-[28px] border border-border bg-surface p-6 transition-colors duration-200 hover:border-income/40">
+    <section className="rounded-[24px] border border-border bg-surface p-5 transition-colors duration-200 hover:border-income/40 sm:rounded-[28px] sm:p-6">
       <div>
         <p className="text-xs uppercase tracking-[0.28em] text-muted">Spending patterns</p>
-        <h2 className="mt-2 text-xl font-black text-text">Frequent spending habits</h2>
+        <h2 className="mt-2 text-lg font-black text-text sm:text-xl">Frequent spending habits</h2>
       </div>
 
-      <div className="mt-6 space-y-3">
+      <div className="mt-5 space-y-3 sm:mt-6">
         {items.length ? (
           items.map((item, index) => (
             <div
               key={item.reason}
-              className="stagger-child flex flex-col gap-3 rounded-3xl border border-border bg-surface2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
+              className="stagger-child flex flex-col gap-3 rounded-[24px] border border-border bg-surface2 px-4 py-4 sm:rounded-3xl sm:flex-row sm:items-center sm:justify-between"
               style={{ animationDelay: `${index * 90}ms` }}
             >
               <div className="flex min-w-0 items-center gap-3">
@@ -41,7 +41,7 @@ export default function SpendingChart({ items = [] }) {
             </div>
           ))
         ) : (
-          <div className="rounded-3xl border border-border bg-surface2 px-4 py-6 text-sm text-muted">
+          <div className="rounded-[24px] border border-border bg-surface2 px-4 py-5 text-sm text-muted sm:rounded-3xl sm:py-6">
             Add a few expenses and your habits will show up here.
           </div>
         )}
