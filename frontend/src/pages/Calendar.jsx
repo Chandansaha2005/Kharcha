@@ -27,7 +27,7 @@ export default function CalendarPage() {
     <div className="page-enter">
       <div>
         <p className="text-xs uppercase tracking-[0.28em] text-muted">Calendar overview</p>
-        <h1 className="mt-3 text-3xl font-black text-text">See income and spending day by day.</h1>
+        <h1 className="mt-3 text-2xl font-black text-text sm:text-3xl">See income and spending day by day.</h1>
       </div>
 
       <div className="mt-6">

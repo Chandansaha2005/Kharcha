@@ -25,17 +25,17 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-incomeLight/70">Money command center</p>
-          <h1 className="mt-3 text-3xl font-black text-text sm:text-4xl">See your money move clearly.</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">
+          <h1 className="mt-3 text-2xl font-black text-text sm:text-4xl">See your money move clearly.</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-muted sm:leading-7">
             Balance, spending momentum, and habit signals all in one place.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="grid gap-3 sm:flex sm:flex-wrap">
           <button
             type="button"
             onClick={() => openExpenseModal()}
-            className="inline-flex items-center gap-2 rounded-full bg-expense px-5 py-3 text-sm font-black text-white shadow-expense"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-expense px-5 py-3 text-sm font-black text-white shadow-expense sm:w-auto"
           >
             <Plus size={16} />
             <span>Add Expense</span>
@@ -43,7 +43,7 @@ export default function DashboardPage() {
           <button
             type="button"
             onClick={() => openIncomeModal()}
-            className="inline-flex items-center gap-2 rounded-full bg-income px-5 py-3 text-sm font-black text-black shadow-income"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-income px-5 py-3 text-sm font-black text-black shadow-income sm:w-auto"
           >
             <TrendingUp size={16} />
             <span>Add Income</span>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
           <button
             type="button"
             onClick={openQuickAddModal}
-            className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-3 text-sm font-black text-accent"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-3 text-sm font-black text-accent sm:w-auto"
           >
             <Sparkles size={16} />
             <span>Quick Add</span>

@@ -41,12 +41,12 @@ export default function IncomePage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-muted">Income sources</p>
-          <h1 className="mt-3 text-3xl font-black text-text">Track what fuels the balance.</h1>
+          <h1 className="mt-3 text-2xl font-black text-text sm:text-3xl">Track what fuels the balance.</h1>
         </div>
         <button
           type="button"
           onClick={() => openIncomeModal()}
-          className="inline-flex items-center gap-2 rounded-full bg-income px-5 py-3 text-sm font-black text-black shadow-income"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-income px-5 py-3 text-sm font-black text-black shadow-income sm:w-auto"
         >
           <Plus size={16} />
           <span>Add Income</span>
@@ -69,10 +69,10 @@ export default function IncomePage() {
               {recurringSources.length ? (
                 recurringSources.map((item) => (
                   <div key={item._id} className="rounded-[28px] border border-border bg-surface p-5">
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div>
                         <p className="text-lg text-text">{item.sourceName}</p>
-                        <p className="financial-number mt-2 text-3xl font-extrabold text-income">
+                        <p className="financial-number mt-2 text-2xl font-extrabold text-income sm:text-3xl">
                           {formatCurrency(item.amount)}
                         </p>
                         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted">
@@ -85,7 +85,7 @@ export default function IncomePage() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex justify-end gap-2 sm:self-start">
                         <button
                           type="button"
                           onClick={() => openIncomeModal(item)}
@@ -118,13 +118,15 @@ export default function IncomePage() {
               {oneTimeSources.length ? (
                 oneTimeSources.map((item) => (
                   <div key={item._id} className="rounded-[28px] border border-border bg-surface px-5 py-4">
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <p className="text-sm text-text">{item.sourceName}</p>
                         <p className="mt-2 text-xs text-muted">{formatDateHeader(item.recordedAt)}</p>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <p className="financial-number text-xl font-extrabold text-income">{formatCurrency(item.amount)}</p>
+                      <div className="flex items-center justify-between gap-3 sm:justify-end">
+                        <p className="financial-number text-lg font-extrabold text-income sm:text-xl">
+                          {formatCurrency(item.amount)}
+                        </p>
                         <button
                           type="button"
                           onClick={() => openIncomeModal(item)}

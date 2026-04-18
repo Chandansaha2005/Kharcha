@@ -27,18 +27,18 @@ export default function WeeklyComparison({ comparison }) {
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <div className="rounded-3xl border border-border bg-surface2 p-5">
           <p className="text-xs uppercase tracking-[0.22em] text-muted">This Week</p>
-          <p className="financial-number mt-3 text-3xl font-extrabold text-expense">
+          <p className="financial-number mt-3 text-2xl font-extrabold text-expense sm:text-3xl">
             {formatCurrency(thisWeek)}
           </p>
         </div>
         <div className="rounded-3xl border border-border bg-surface2 p-5">
           <p className="text-xs uppercase tracking-[0.22em] text-muted">Last Week</p>
-          <p className="financial-number mt-3 text-3xl font-extrabold text-text">{formatCurrency(lastWeek)}</p>
+          <p className="financial-number mt-3 text-2xl font-extrabold text-text sm:text-3xl">{formatCurrency(lastWeek)}</p>
         </div>
       </div>
 
       <div
-        className={`mt-5 flex items-center gap-3 rounded-3xl border px-4 py-4 text-sm ${
+        className={`mt-5 flex flex-col items-start gap-3 rounded-3xl border px-4 py-4 text-sm sm:flex-row sm:items-center ${
           spendingMore
             ? "border-expense/25 bg-expense/10 text-expenseLight"
             : "border-income/25 bg-income/10 text-incomeLight"

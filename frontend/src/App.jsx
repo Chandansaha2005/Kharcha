@@ -39,7 +39,7 @@ function AppLayout() {
     <div className="min-h-screen bg-background text-text">
       <Sidebar balance={summaryQuery.data?.totalBalance || 0} />
       <div className="min-h-screen lg:pl-60">
-        <main className="mx-auto min-h-screen max-w-7xl px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-8 lg:pt-8">
+        <main className="mx-auto min-h-screen max-w-7xl px-3 pb-[calc(env(safe-area-inset-bottom)+9.5rem)] pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pb-8 lg:pt-8">
           <Outlet
             context={{
               openExpenseModal: (pendingExpense = null) => setExpenseModal({ open: true, pendingExpense }),

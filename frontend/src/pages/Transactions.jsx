@@ -50,12 +50,12 @@ export default function TransactionsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-muted">Transaction log</p>
-          <h1 className="mt-3 text-3xl font-black text-text">Every move, grouped by day.</h1>
+          <h1 className="mt-3 text-2xl font-black text-text sm:text-3xl">Every move, grouped by day.</h1>
         </div>
         <button
           type="button"
           onClick={() => openExpenseModal()}
-          className="inline-flex items-center gap-2 rounded-full bg-expense px-5 py-3 text-sm font-black text-white shadow-expense"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-expense px-5 py-3 text-sm font-black text-white shadow-expense sm:w-auto"
         >
           <Plus size={16} />
           <span>Add Expense</span>

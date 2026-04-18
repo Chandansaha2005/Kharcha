@@ -36,7 +36,7 @@ export default function PendingPage() {
         <Clock3 className="text-accent" size={22} />
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-muted">Pending expenses</p>
-          <h1 className="mt-2 text-3xl font-black text-text">Save now, fill in details later.</h1>
+          <h1 className="mt-2 text-2xl font-black text-text sm:text-3xl">Save now, fill in details later.</h1>
         </div>
       </div>
 

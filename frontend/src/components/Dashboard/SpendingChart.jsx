@@ -15,7 +15,7 @@ export default function SpendingChart({ items = [] }) {
           items.map((item, index) => (
             <div
               key={item.reason}
-              className="stagger-child flex items-center justify-between gap-3 rounded-3xl border border-border bg-surface2 px-4 py-4"
+              className="stagger-child flex flex-col gap-3 rounded-3xl border border-border bg-surface2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
               style={{ animationDelay: `${index * 90}ms` }}
             >
               <div className="flex min-w-0 items-center gap-3">
@@ -29,7 +29,7 @@ export default function SpendingChart({ items = [] }) {
                   <p className="mt-1 text-xs text-muted">{item.count} times</p>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="flex w-full items-center justify-between gap-3 sm:block sm:w-auto sm:text-right">
                 <p className="financial-number text-sm font-extrabold text-expense">{formatCurrency(item.totalAmount)}</p>
                 {item.count > 5 ? (
                   <div className="mt-1 inline-flex items-center gap-1 text-[11px] text-orange-300">

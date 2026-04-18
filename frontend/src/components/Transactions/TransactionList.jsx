@@ -76,32 +76,34 @@ export default function TransactionList({ transactions = [], onDelete }) {
                   onPointerUp={clearPress}
                   onPointerLeave={clearPress}
                 >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${
-                        transaction.type === "income" ? "bg-income/15 text-income" : meta.color
-                      }`}
-                    >
-                      <Icon size={20} />
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                    <div className="flex items-start gap-3 sm:flex-1 sm:items-center">
+                      <div
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl sm:h-12 sm:w-12 ${
+                          transaction.type === "income" ? "bg-income/15 text-income" : meta.color
+                        }`}
+                      >
+                        <Icon size={20} />
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(isExpanded ? null : transaction._id)}
+                        className="min-w-0 flex-1 text-left"
+                      >
+                        <p className="truncate text-sm text-text">{transaction.reason}</p>
+                        <div className="mt-2 flex flex-wrap items-center gap-2">
+                          <span className="rounded-full bg-surface2 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-muted">
+                            {transaction.category}
+                          </span>
+                          <p className="text-xs text-muted">{new Date(transaction.date).toLocaleString("en-IN")}</p>
+                        </div>
+                      </button>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setExpandedId(isExpanded ? null : transaction._id)}
-                      className="min-w-0 flex-1 text-left"
-                    >
-                      <div className="flex items-center gap-2">
-                        <p className="truncate text-sm text-text">{transaction.reason}</p>
-                        <span className="rounded-full bg-surface2 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-muted">
-                          {transaction.category}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-xs text-muted">{new Date(transaction.date).toLocaleString("en-IN")}</p>
-                    </button>
-
-                    <div className="ml-auto text-right">
+                    <div className="flex items-center justify-between gap-3 sm:ml-auto sm:min-w-[10rem] sm:justify-end sm:text-right">
                       <p
-                        className={`financial-number text-lg font-extrabold ${
+                        className={`financial-number text-base font-extrabold sm:text-lg ${
                           transaction.type === "income" ? "text-income" : "text-expense"
                         }`}
                       >
@@ -111,7 +113,7 @@ export default function TransactionList({ transactions = [], onDelete }) {
                       <button
                         type="button"
                         onClick={() => setExpandedId(isExpanded ? null : transaction._id)}
-                        className="mt-2 inline-flex text-muted"
+                        className="inline-flex text-muted sm:mt-2"
                       >
                         <ChevronDown className={`${isExpanded ? "rotate-180" : ""}`} size={16} />
                       </button>

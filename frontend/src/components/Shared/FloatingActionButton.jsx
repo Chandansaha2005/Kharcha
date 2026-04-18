@@ -44,9 +44,9 @@ export default function FloatingActionButton({ onOpenExpense, onOpenIncome, onOp
         />
       ) : null}
 
-      <div className="fixed bottom-24 right-4 z-50 md:hidden">
+      <div className="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] z-50 flex justify-end px-4 md:hidden">
         <div
-          className={`mb-3 w-[calc(100vw-2rem)] max-w-sm rounded-[28px] border border-border bg-surface/95 p-4 shadow-2xl backdrop-blur-xl transition-transform duration-300 ${
+          className={`mb-3 w-full max-w-sm rounded-[28px] border border-border bg-surface/95 p-4 shadow-2xl backdrop-blur-xl transition-transform duration-300 ${
             open ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-full opacity-0"
           }`}
         >
@@ -77,7 +77,7 @@ export default function FloatingActionButton({ onOpenExpense, onOpenIncome, onOp
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
-          className={`flex h-16 w-16 items-center justify-center rounded-full border border-income/30 bg-income shadow-income ${
+          className={`flex h-14 w-14 items-center justify-center rounded-full border border-income/30 bg-income shadow-income sm:h-16 sm:w-16 ${
             open ? "rotate-45" : ""
           }`}
           aria-label="Open quick actions"

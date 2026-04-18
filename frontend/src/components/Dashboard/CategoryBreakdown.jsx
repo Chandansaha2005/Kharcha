@@ -27,7 +27,7 @@ export default function CategoryBreakdown({ items = [] }) {
               className="stagger-child"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="mb-2 flex items-center justify-between gap-3">
+              <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-sm text-text">{item.category}</span>
                 <div className="flex items-center gap-3 text-xs text-muted">
                   <span className="financial-number text-expenseLight">{formatCurrency(item.amount)}</span>

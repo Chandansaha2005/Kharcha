@@ -11,8 +11,8 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 px-2 py-2 backdrop-blur-xl lg:hidden">
-      <div className="grid grid-cols-5 gap-1">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 px-2 pt-2 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] backdrop-blur-xl lg:hidden">
+      <div className="mx-auto grid max-w-md grid-cols-5 gap-1">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -22,8 +22,8 @@ export default function Navbar() {
               to={item.to}
               end={item.to === "/"}
               className={({ isActive }) =>
-                `flex flex-col items-center justify-center gap-1 rounded-2xl px-2 py-3 text-[11px] ${
-                  isActive ? "text-income" : "text-muted"
+                `flex min-h-[64px] flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 text-[10px] leading-none ${
+                  isActive ? "bg-income/10 text-income" : "text-muted"
                 }`
               }
             >

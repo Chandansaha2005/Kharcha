@@ -49,13 +49,13 @@ export default function BalanceCard({ label, amount, tone = "accent", icon = "ba
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-muted">{label}</p>
-          <div className={`financial-number mt-4 flex items-center gap-1 text-3xl font-extrabold ${styles.value}`}>
-            <IndianRupee size={24} strokeWidth={2.5} />
-            <span>{formatCurrency(countedValue).replace("₹", "").trim()}</span>
+          <div className={`financial-number mt-4 flex items-center gap-1 text-2xl font-extrabold sm:text-3xl ${styles.value}`}>
+            <IndianRupee size={22} strokeWidth={2.5} className="sm:h-6 sm:w-6" />
+            <span>{formatCurrency(countedValue).replace(/[^\d.,-]/g, "").trim()}</span>
           </div>
           <p className="mt-3 text-xs text-muted">{subtitle}</p>
         </div>
-        <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${styles.icon}`}>
+        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl sm:h-14 sm:w-14 ${styles.icon}`}>
           <Icon size={24} />
         </div>
       </div>

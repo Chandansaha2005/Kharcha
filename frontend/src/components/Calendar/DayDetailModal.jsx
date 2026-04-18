@@ -55,11 +55,11 @@ export default function DayDetailModal({ date, onClose }) {
   }, [query.data]);
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70 px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-6 backdrop-blur-sm sm:items-center sm:px-4 sm:pb-0">
       <button type="button" className="absolute inset-0 cursor-default backdrop-fade" onClick={closeModal} />
       <div
         data-state={closing ? "closing" : "open"}
-        className="modal-panel relative z-10 w-full max-w-2xl rounded-[30px] border border-border bg-surface p-6 shadow-2xl"
+        className="modal-panel relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-[30px] border border-border bg-surface p-4 shadow-2xl sm:p-6"
       >
         <button
           type="button"
@@ -69,8 +69,8 @@ export default function DayDetailModal({ date, onClose }) {
           <X size={18} />
         </button>
 
-        <p className="text-2xl font-black text-text">{format(new Date(date), "EEEE, MMMM d")}</p>
-        <p className="mt-4 text-sm text-muted">
+        <p className="pr-10 text-xl font-black text-text sm:text-2xl">{format(new Date(date), "EEEE, MMMM d")}</p>
+        <p className="mt-4 text-sm leading-6 text-muted">
           Earned <span className="text-income">{formatCurrency(summary.earned)}</span> - Spent{" "}
           <span className="text-expense">{formatCurrency(summary.spent)}</span> - Net{" "}
           <span className={summary.net >= 0 ? "text-income" : "text-expense"}>{formatCurrency(summary.net)}</span>
@@ -83,7 +83,7 @@ export default function DayDetailModal({ date, onClose }) {
             query.data.map((transaction) => (
               <div
                 key={transaction._id}
-                className="flex items-center justify-between gap-4 rounded-3xl border border-border bg-surface2 px-4 py-4"
+                className="flex flex-col gap-3 rounded-3xl border border-border bg-surface2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <p className="text-sm text-text">{transaction.reason}</p>
@@ -92,9 +92,9 @@ export default function DayDetailModal({ date, onClose }) {
                     <span>{format(new Date(transaction.date), "p")}</span>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="flex items-center justify-between gap-3 sm:block sm:text-right">
                   <p
-                    className={`financial-number text-lg font-extrabold ${
+                    className={`financial-number text-base font-extrabold sm:text-lg ${
                       transaction.type === "income" ? "text-income" : "text-expense"
                     }`}
                   >
