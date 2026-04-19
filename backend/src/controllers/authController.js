@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 
 const User = require("../models/User");
 const { sendMagicLink } = require("../services/emailService");
+const { normalizeUrl } = require("../utils/url");
 
 const buildTokenHash = (token) => crypto.createHash("sha256").update(token).digest("hex");
 
@@ -41,6 +42,8 @@ const buildMagicLinkEmailError = (mailError) => {
   return error;
 };
 
+const getFrontendUrl = () => normalizeUrl(process.env.FRONTEND_URL);
+
 const requestMagicLink = async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -71,7 +74,14 @@ const requestMagicLink = async (req, res, next) => {
     user.magicLinkExpiry = new Date(Date.now() + 15 * 60 * 1000);
     await user.save();
 
-    const magicLink = `${process.env.FRONTEND_URL}/auth/verify?token=${rawToken}`;
+    const frontendUrl = getFrontendUrl();
+    if (!frontendUrl) {
+      const error = new Error("FRONTEND_URL is not configured");
+      error.statusCode = 500;
+      throw error;
+    }
+
+    const magicLink = `${frontendUrl}/auth/verify?token=${rawToken}`;
 
     try {
       await sendMagicLink(email, magicLink);
