@@ -273,10 +273,6 @@ If port 5000 or 5173 is already in use, you can change it:
 - Ensure `VITE_API_URL` matches your backend URL
 - Check backend CORS settings if modified
 
-## 📄 License
-
-MIT License - Feel free to use this project for personal or educational purposes.
-
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
