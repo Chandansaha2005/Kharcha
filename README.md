@@ -56,7 +56,7 @@ Kharcha is a modern, full-stack personal expense tracking web application design
 ## 📁 Project Structure
 
 ```
-Kharcha-Pani/
+Kharcha/
 ├── backend/                    # Node.js + Express API
 │   ├── src/
 │   │   ├── app.js             # Express app configuration
@@ -97,7 +97,7 @@ Before you begin, ensure you have the following installed:
 ### Step 1: Clone the Repository
 ```bash
 git clone <repository-url>
-cd Kharcha-Pani
+cd Kharcha
 ```
 
 ### Step 2: Backend Setup
