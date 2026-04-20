@@ -19,7 +19,7 @@ const toneMap = {
   },
   expense: {
     border: "border-expense/20 hover:border-expense/60",
-    shadow: "shadow-expense animate-pulse",
+    shadow: "shadow-expense",
     value: "text-expense",
     icon: "bg-expense/15 text-expense",
   },
@@ -61,27 +61,15 @@ export default function BalanceCard({
 
   return (
     <div
-      className={`stagger-child border bg-surface ${
-        compact ? "rounded-[24px] p-4" : "rounded-[24px] p-5 sm:rounded-[28px] sm:p-6"
+      className={`stagger-child flex h-full min-h-[176px] flex-col border bg-surface ${
+        compact
+          ? "rounded-[24px] p-4"
+          : "rounded-[24px] p-5 sm:min-h-[192px] sm:rounded-[28px] sm:p-6"
       } ${styles.border} ${styles.shadow} ${tone === "expense" ? "expense-glow" : ""}`}
-      style={
-        tone === "expense"
-          ? { boxShadow: "0 0 0 1px rgba(239,68,68,0.2), 0 18px 36px -18px rgba(239,68,68,0.55)" }
-          : undefined
-      }
     >
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-muted">{label}</p>
-          <div
-            className={`financial-number flex items-center gap-1 ${
-              compact ? "mt-3 text-xl sm:text-2xl" : "mt-4 text-2xl sm:text-3xl"
-            } font-extrabold ${styles.value}`}
-          >
-            <IndianRupee size={compact ? 20 : 22} strokeWidth={2.5} className="sm:h-6 sm:w-6" />
-            <span>{displayText}</span>
-          </div>
-          <p className={`${compact ? "mt-2" : "mt-3"} text-xs text-muted`}>{resolvedSubtitle}</p>
         </div>
         {maskable ? (
           <button
@@ -104,17 +92,16 @@ export default function BalanceCard({
         )}
       </div>
 
-      {maskable ? (
-        <div className="mt-4 flex items-center justify-end">
-          <div
-            className={`flex items-center justify-center rounded-2xl ${
-              compact ? "h-10 w-10" : "h-11 w-11"
-            } ${styles.icon}`}
-          >
-            <Icon size={compact ? 18 : 20} />
-          </div>
-        </div>
-      ) : null}
+      <div
+        className={`financial-number flex items-center gap-1 ${
+          compact ? "mt-5 text-xl sm:text-2xl" : "mt-6 text-2xl sm:text-3xl"
+        } font-extrabold ${styles.value}`}
+      >
+        <IndianRupee size={compact ? 20 : 22} strokeWidth={2.5} className="sm:h-6 sm:w-6" />
+        <span>{displayText}</span>
+      </div>
+
+      <p className={`${compact ? "mt-3" : "mt-auto pt-4"} text-xs text-muted`}>{resolvedSubtitle}</p>
     </div>
   );
 }

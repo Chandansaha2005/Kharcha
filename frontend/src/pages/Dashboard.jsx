@@ -50,14 +50,14 @@ export default function DashboardPage() {
               maskable
             />
             <BalanceCard
-              label="This Month's Income"
+              label="This Month Income"
               amount={summaryQuery.data?.totalIncome}
               tone="income"
               icon="income"
               subtitle="Fresh inflows this month"
             />
             <BalanceCard
-              label="This Month's Expenses"
+              label="This Month Expense"
               amount={summaryQuery.data?.totalExpenses}
               tone="expense"
               icon="expense"
