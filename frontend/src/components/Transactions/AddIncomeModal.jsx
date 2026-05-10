@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import api from "../../api/axios";
 import { formatCurrency, formatInputDate } from "../../utils/formatters";
+import { playTransactionFeedback } from "../../utils/transactionFeedback";
 import { useToast } from "../Shared/ToastProvider";
 
 export default function AddIncomeModal({ onClose, incomeSource = null }) {
@@ -40,6 +41,9 @@ export default function AddIncomeModal({ onClose, incomeSource = null }) {
       return data;
     },
     onSuccess: () => {
+      if (!incomeSource?._id) {
+        playTransactionFeedback();
+      }
       queryClient.invalidateQueries({ queryKey: ["income-sources"] });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
       queryClient.invalidateQueries({ queryKey: ["dashboard-summary"] });

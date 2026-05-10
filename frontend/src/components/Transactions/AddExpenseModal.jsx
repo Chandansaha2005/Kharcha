@@ -3,8 +3,9 @@ import { ChevronDown, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import api from "../../api/axios";
-import { useToast } from "../Shared/ToastProvider";
 import { CATEGORY_OPTIONS, formatCurrency, formatInputDate } from "../../utils/formatters";
+import { playTransactionFeedback } from "../../utils/transactionFeedback";
+import { useToast } from "../Shared/ToastProvider";
 
 export default function AddExpenseModal({ onClose, pendingExpense = null }) {
   const queryClient = useQueryClient();
@@ -70,6 +71,7 @@ export default function AddExpenseModal({ onClose, pendingExpense = null }) {
       return data;
     },
     onSuccess: () => {
+      playTransactionFeedback();
       queryClient.invalidateQueries({ queryKey: ["dashboard-summary"] });
       queryClient.invalidateQueries({ queryKey: ["layout-summary"] });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
