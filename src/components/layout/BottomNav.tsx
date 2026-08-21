@@ -12,32 +12,24 @@ const ITEMS: { to: string; label: string; icon: LucideIcon }[] = [
 
 export function BottomNav() {
   return (
-    <nav
-      className="fixed inset-x-0 bottom-0 z-20 mx-auto w-full max-w-app px-margin"
-      style={{ paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }}
-    >
-      <div
-        className="flex items-center justify-between border-2 border-outline bg-surface-container-high px-3 py-3"
-        style={{ boxShadow: '5px 5px 0 0 #000' }}
-      >
-        {ITEMS.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            aria-label={label}
-            className={({ isActive }) =>
-              cn(
-                'flex h-12 min-w-12 items-center justify-center border-2 px-4 transition-colors',
-                isActive
-                  ? 'border-black bg-primary text-on-primary'
-                  : 'border-transparent text-on-surface-variant hover:text-on-surface',
-              )
-            }
-          >
-            <Icon className="h-6 w-6" strokeWidth={2.25} />
-          </NavLink>
-        ))}
-      </div>
+    <nav className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md bg-white border-[3px] border-black rounded-full p-2 shadow-[6px_6px_0px_#000000] flex justify-around items-center">
+      {ITEMS.map(({ to, label, icon: Icon }) => (
+        <NavLink
+          key={to}
+          to={to}
+          aria-label={label}
+          className={({ isActive }) =>
+            cn(
+              'flex items-center justify-center transition-all',
+              isActive
+                ? 'bg-[#FFD200] border-2 border-black rounded-full p-2.5 shadow-[2px_2px_0px_#000000] text-black'
+                : 'p-2.5 text-black hover:opacity-70',
+            )
+          }
+        >
+          <Icon className="h-6 w-6" strokeWidth={2.5} />
+        </NavLink>
+      ))}
     </nav>
   )
 }

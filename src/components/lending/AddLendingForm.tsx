@@ -54,8 +54,8 @@ export function AddLendingForm({ uid, onNotice }: { uid: string; onNotice: (m: s
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card flex flex-col gap-4 p-5">
-      <h2 className="text-title-md font-semibold text-on-surface">New Lending</h2>
+    <form onSubmit={handleSubmit} className="bg-white border-[2.5px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000000] flex flex-col gap-4">
+      <h2 className="text-xl font-black text-black">New Lending</h2>
 
       <Input
         label="Person Name"
@@ -87,10 +87,10 @@ export function AddLendingForm({ uid, onNotice }: { uid: string; onNotice: (m: s
               type="button"
               onClick={() => setType(t)}
               className={cn(
-                'flex h-12 items-center justify-center rounded-lg border text-base font-semibold capitalize transition-colors',
+                'flex h-12 items-center justify-center rounded-xl border-2 border-black text-base font-extrabold capitalize transition-all',
                 type === t
-                  ? 'border-primary bg-primary/10 text-primary'
-                  : 'border-transparent bg-surface-container-high text-on-surface-variant hover:text-on-surface',
+                  ? 'bg-[#FFD200] text-black shadow-[2px_2px_0px_#000000]'
+                  : 'bg-white text-black hover:bg-gray-50',
               )}
             >
               {t}
@@ -108,10 +108,10 @@ export function AddLendingForm({ uid, onNotice }: { uid: string; onNotice: (m: s
         required
       />
 
-      {error && <p className="text-body-sm text-error">{error}</p>}
+      {error && <p className="text-sm font-bold text-[#FF5A36]">{error}</p>}
 
       <Button type="submit" loading={loading}>
-        <Plus className="h-5 w-5" />
+        <Plus className="h-5 w-5" strokeWidth={2.5} />
         Save Lending
       </Button>
     </form>

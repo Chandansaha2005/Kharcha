@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Building2, CalendarDays, CheckCircle2, TrendingUp, Wallet } from 'lucide-react'
 import { ScreenHeader } from '../components/ui/ScreenHeader'
 import { Avatar } from '../components/ui/Avatar'
-import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { SegmentedControl } from '../components/ui/SegmentedControl'
 import { cn } from '../utils/cn'
@@ -74,15 +73,15 @@ export default function AddTransactionPage() {
   }
 
   return (
-    <div className="app-shell min-h-screen px-margin pb-4 pt-4">
+    <div className="app-shell min-h-screen px-margin pb-6 pt-4 bg-[#FDFBF7]">
       <ScreenHeader
         onBack={() => navigate('/home')}
         trailing={<Avatar name={profile?.name} photo={profile?.photoURL ?? user?.photoURL} size={36} />}
       />
 
       <div className="mt-4">
-        <h1 className="text-headline-mobile text-on-surface">Add Transaction</h1>
-        <p className="mt-1 text-body-lg text-on-surface-variant">Record a new movement of funds.</p>
+        <h1 className="text-2xl font-black text-black">Add Transaction</h1>
+        <p className="mt-1 text-sm font-bold text-gray-700">Record a new movement of funds.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-1 flex-col">
@@ -95,11 +94,11 @@ export default function AddTransactionPage() {
           onChange={setMode}
         />
 
-        {/* Amount display */}
-        <div className="card mt-6 flex flex-col items-center gap-2 p-6">
-          <span className="text-label-caps uppercase text-on-surface-variant">Amount</span>
+        {/* Amount display card */}
+        <div className="bg-white border-[2.5px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000000] mt-6 flex flex-col items-center gap-2">
+          <span className="text-xs font-black uppercase tracking-wide text-black">Amount</span>
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-bold text-on-surface-variant">₹</span>
+            <span className="text-3xl font-black text-black">₹</span>
             <input
               type="number"
               inputMode="decimal"
@@ -108,14 +107,14 @@ export default function AddTransactionPage() {
               placeholder="0.00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-44 bg-transparent text-center text-5xl font-bold text-on-surface outline-none placeholder:text-on-surface-variant/50"
+              className="w-48 bg-transparent text-center text-4xl font-black text-black outline-none placeholder:text-gray-400"
               autoFocus
             />
           </div>
         </div>
 
-        {/* Details */}
-        <div className="card mt-6 flex flex-col gap-5 p-5">
+        {/* Form details card */}
+        <div className="bg-white border-[2.5px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000000] mt-6 flex flex-col gap-5">
           <Input
             label="Title"
             name="title"
@@ -138,10 +137,10 @@ export default function AddTransactionPage() {
             <span className="field-label">Payment Method</span>
             <div className="grid grid-cols-2 gap-3">
               <TypeButton active={type === 'online'} onClick={() => setType('online')}>
-                <Building2 className="h-5 w-5" /> Online
+                <Building2 className="h-5 w-5" strokeWidth={2.5} /> Online
               </TypeButton>
               <TypeButton active={type === 'cash'} onClick={() => setType('cash')}>
-                <Wallet className="h-5 w-5" /> Cash
+                <Wallet className="h-5 w-5" strokeWidth={2.5} /> Cash
               </TypeButton>
             </div>
           </div>
@@ -152,28 +151,32 @@ export default function AddTransactionPage() {
             type="date"
             value={dateValue}
             onChange={(e) => setDateValue(e.target.value)}
-            trailing={<CalendarDays className="h-5 w-5 text-on-surface-variant" />}
+            trailing={<CalendarDays className="h-5 w-5 text-black" strokeWidth={2.5} />}
             required
           />
         </div>
 
-        {/* Projected total */}
-        <div className="card mt-6 flex items-center justify-between p-4">
+        {/* Projected total card */}
+        <div className="bg-white border-[2.5px] border-black rounded-2xl p-4 shadow-[4px_4px_0px_#000000] mt-6 flex items-center justify-between">
           <div>
-            <p className="text-label-caps uppercase text-on-surface-variant">Estimated Total Savings</p>
-            <p className="mt-1 text-title-md font-bold text-on-surface">{formatINR(projectedTotal)}</p>
+            <p className="text-xs font-black uppercase tracking-wide text-black">Estimated Total Savings</p>
+            <p className="mt-1 text-xl font-black text-black">{formatINR(projectedTotal)}</p>
           </div>
-          <TrendingUp className={cn('h-6 w-6', mode === 'increase' ? 'text-primary' : 'text-secondary')} />
+          <TrendingUp className={cn('h-6 w-6', mode === 'increase' ? 'text-[#10B981]' : 'text-[#FF5A36]')} strokeWidth={2.5} />
         </div>
 
-        {error && <p className="mt-4 text-body-sm text-error">{error}</p>}
+        {error && <p className="mt-4 text-sm font-bold text-[#FF5A36]">{error}</p>}
 
-        {/* Sticky confirm button */}
-        <div className="sticky bottom-0 mt-6 bg-background pb-2 pt-3">
-          <Button type="submit" loading={loading}>
-            <CheckCircle2 className="h-5 w-5" />
+        {/* Submit button */}
+        <div className="mt-8 mb-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#FFD200] text-black font-extrabold text-lg uppercase border-[2.5px] border-black rounded-full py-4 shadow-[4px_4px_0px_#000000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            <CheckCircle2 className="h-6 w-6" strokeWidth={2.5} />
             Confirm Transaction
-          </Button>
+          </button>
         </div>
       </form>
     </div>
@@ -194,10 +197,10 @@ function TypeButton({
       type="button"
       onClick={onClick}
       className={cn(
-        'flex h-12 items-center justify-center gap-2 rounded-lg border text-base font-semibold transition-colors',
+        'flex h-12 items-center justify-center gap-2 rounded-xl border-2 border-black text-base font-extrabold transition-all',
         active
-          ? 'border-primary bg-primary/10 text-primary'
-          : 'border-transparent bg-surface-container-high text-on-surface-variant hover:text-on-surface',
+          ? 'bg-[#FFD200] text-black shadow-[2px_2px_0px_#000000]'
+          : 'bg-white text-black hover:bg-gray-50',
       )}
     >
       {children}

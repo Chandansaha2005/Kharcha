@@ -20,19 +20,32 @@ export function SegmentedControl<T extends string>({
   className,
 }: SegmentedControlProps<T>) {
   return (
-    <div className={cn('flex gap-2 border-2 border-outline bg-surface-container-high p-1.5', className)}>
+    <div
+      className={cn(
+        'flex gap-2 bg-white border-[2.5px] border-black rounded-2xl p-1.5 shadow-[4px_4px_0px_#000000]',
+        className,
+      )}
+    >
       {segments.map((seg) => {
         const active = seg.value === value
+
+        let activeColorClass = 'bg-[#FFD200] text-black border-2 border-black shadow-[2px_2px_0px_#000000]'
+        if (seg.value === 'expense') {
+          activeColorClass = 'bg-[#FF5A36] text-white border-2 border-black shadow-[2px_2px_0px_#000000]'
+        } else if (seg.value === 'increase') {
+          activeColorClass = 'bg-[#10B981] text-black border-2 border-black shadow-[2px_2px_0px_#000000]'
+        }
+
         return (
           <button
             key={seg.value}
             type="button"
             onClick={() => onChange(seg.value)}
             className={cn(
-              'flex h-12 flex-1 items-center justify-center gap-2 font-pixel text-[11px] uppercase tracking-wider transition-colors',
+              'flex h-12 flex-1 items-center justify-center gap-2 font-black text-sm uppercase tracking-wide transition-all rounded-xl',
               active
-                ? 'bg-primary text-on-primary'
-                : 'text-on-surface-variant hover:text-on-surface',
+                ? activeColorClass
+                : 'text-black font-bold hover:bg-gray-100 border-2 border-transparent',
             )}
           >
             {seg.label}

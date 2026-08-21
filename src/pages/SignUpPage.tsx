@@ -26,7 +26,6 @@ export default function SignUpPage() {
     setLoading(true)
     try {
       await signUpWithEmail(name.trim(), email.trim(), password)
-      // Guards route to /setup for the new account.
     } catch (err) {
       setError(authErrorMessage(err))
     } finally {
@@ -48,11 +47,11 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="app-shell min-h-screen px-margin pb-10 pt-4">
+    <div className="app-shell min-h-screen px-margin pb-10 pt-4 bg-[#FDFBF7]">
       <ScreenHeader />
       <div className="mt-6">
-        <h1 className="text-headline-mobile text-on-surface">Create Account</h1>
-        <p className="mt-2 text-body-lg text-on-surface-variant">
+        <h1 className="text-2xl font-black text-black">Create Account</h1>
+        <p className="mt-2 text-sm font-bold text-gray-700">
           Start tracking your savings with Kharcha.
         </p>
       </div>
@@ -92,14 +91,14 @@ export default function SignUpPage() {
               type="button"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               onClick={() => setShowPassword((s) => !s)}
-              className="text-on-surface-variant"
+              className="text-black"
             >
-              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              {showPassword ? <EyeOff className="h-5 w-5" strokeWidth={2.5} /> : <Eye className="h-5 w-5" strokeWidth={2.5} />}
             </button>
           }
         />
 
-        {error && <p className="text-body-sm text-error">{error}</p>}
+        {error && <p className="text-sm font-bold text-[#FF5A36]">{error}</p>}
 
         <Button type="submit" loading={loading} className="mt-2">
           Create Account
@@ -107,9 +106,9 @@ export default function SignUpPage() {
       </form>
 
       <div className="my-7 flex items-center gap-4">
-        <div className="h-px flex-1 bg-outline-variant" />
-        <span className="text-label-caps uppercase text-on-surface-variant">OR</span>
-        <div className="h-px flex-1 bg-outline-variant" />
+        <div className="h-[2px] flex-1 bg-black" />
+        <span className="text-xs font-black text-black">OR</span>
+        <div className="h-[2px] flex-1 bg-black" />
       </div>
 
       <Button variant="ghost" onClick={handleGoogle} loading={googleLoading}>
@@ -117,9 +116,9 @@ export default function SignUpPage() {
         Google sign-in
       </Button>
 
-      <p className="mt-auto pt-8 text-center text-body-lg text-on-surface-variant">
+      <p className="mt-auto pt-8 text-center text-sm font-bold text-gray-700">
         Already have an account?{' '}
-        <Link to="/signin" className="font-bold text-primary">
+        <Link to="/signin" className="font-black text-black underline underline-offset-2">
           Sign In
         </Link>
       </p>

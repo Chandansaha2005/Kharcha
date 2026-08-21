@@ -15,16 +15,16 @@ export function Avatar({ name, photo, size = 40, onClick, className }: AvatarPro
   const inner = photo ? (
     <img src={photo} alt="" className="h-full w-full object-cover" referrerPolicy="no-referrer" />
   ) : initial ? (
-    <span className="font-semibold text-on-surface" style={{ fontSize: size * 0.4 }}>
+    <span className="font-extrabold text-black" style={{ fontSize: size * 0.4 }}>
       {initial}
     </span>
   ) : (
-    <User className="text-on-surface-variant" style={{ width: size * 0.5, height: size * 0.5 }} />
+    <User className="text-black" style={{ width: size * 0.5, height: size * 0.5 }} />
   )
 
   const classes = cn(
-    'flex shrink-0 items-center justify-center overflow-hidden border-2 border-outline bg-surface-container-high',
-    onClick && 'transition-opacity active:opacity-70',
+    'flex shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-black bg-[#FFD200] shadow-[2px_2px_0px_#000000]',
+    onClick && 'transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none',
     className,
   )
 

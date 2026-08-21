@@ -59,9 +59,9 @@ export default function ProfilePage() {
             type="button"
             aria-label="Edit name"
             onClick={startEditing}
-            className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-primary text-on-primary"
+            className="absolute bottom-0 right-0 flex h-9 w-9 items-center justify-center rounded-full border-2 border-black bg-[#FFD200] text-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
           >
-            <Pencil className="h-4 w-4" />
+            <Pencil className="h-4 w-4" strokeWidth={2.5} />
           </button>
         </div>
 
@@ -79,39 +79,39 @@ export default function ProfilePage() {
               aria-label="Save name"
               onClick={handleSaveName}
               disabled={saving}
-              className="flex h-14 w-12 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary disabled:opacity-50"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-black bg-[#10B981] text-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50"
             >
-              <Check className="h-5 w-5" />
+              <Check className="h-5 w-5" strokeWidth={2.5} />
             </button>
             <button
               type="button"
               aria-label="Cancel"
               onClick={() => setEditing(false)}
-              className="flex h-14 w-12 shrink-0 items-center justify-center rounded-lg bg-surface-container-high text-on-surface"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-black bg-white text-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
             >
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5" strokeWidth={2.5} />
             </button>
           </div>
         ) : (
-          <h2 className="mt-4 text-headline-mobile text-on-surface">{profile?.name ?? 'User'}</h2>
+          <h2 className="mt-4 text-2xl font-black text-black">{profile?.name ?? 'User'}</h2>
         )}
 
-        <p className="mt-1 text-body-lg text-on-surface-variant">{profile?.email ?? user?.email}</p>
+        <p className="mt-1 text-sm font-bold text-gray-700">{profile?.email ?? user?.email}</p>
       </div>
 
       {/* Account settings */}
       <div className="mt-7">
-        <h3 className="mb-3 text-label-caps uppercase text-on-surface-variant">Account Settings</h3>
+        <h3 className="mb-3 text-xs font-black uppercase tracking-wide text-black">Account Settings</h3>
         <button
           type="button"
           onClick={startEditing}
-          className="flex w-full items-center gap-3 rounded-xl border border-white/5 bg-surface-container p-4 transition-colors active:bg-surface-container-high"
+          className="flex w-full items-center gap-3 bg-white border-[2.5px] border-black rounded-2xl p-4 shadow-[4px_4px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_#000000] transition-all"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-container-high">
-            <Pencil className="h-5 w-5 text-on-surface-variant" />
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black bg-[#FFD200] text-black">
+            <Pencil className="h-5 w-5" strokeWidth={2.5} />
           </span>
-          <span className="flex-1 text-left text-body-lg text-on-surface">Edit Name</span>
-          <ChevronRight className="h-5 w-5 text-on-surface-variant" />
+          <span className="flex-1 text-left text-base font-extrabold text-black">Edit Name</span>
+          <ChevronRight className="h-5 w-5 text-black" strokeWidth={2.5} />
         </button>
       </div>
 
@@ -120,9 +120,9 @@ export default function ProfilePage() {
         type="button"
         onClick={handleLogout}
         disabled={loggingOut}
-        className="mt-8 flex items-center justify-center gap-2 py-2 text-body-lg font-semibold text-secondary transition-opacity active:opacity-60 disabled:opacity-50"
+        className="mt-8 flex items-center justify-center gap-2 py-3 text-base font-black text-white bg-[#FF5A36] border-2 border-black rounded-full shadow-[3px_3px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all disabled:opacity-50"
       >
-        <LogOut className="h-5 w-5" />
+        <LogOut className="h-5 w-5" strokeWidth={2.5} />
         Logout
       </button>
     </div>

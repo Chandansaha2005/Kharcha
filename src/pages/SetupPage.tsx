@@ -19,12 +19,12 @@ function MoneyField({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-3 flex items-center gap-2 text-title-md font-semibold text-on-surface">
-        <span className="text-primary">{icon}</span>
+      <label htmlFor={id} className="mb-2 flex items-center gap-2 text-base font-extrabold text-black">
+        <span className="text-black">{icon}</span>
         {label}
       </label>
       <div className="relative">
-        <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-lg text-on-surface-variant">
+        <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-lg font-black text-black">
           ₹
         </span>
         <input
@@ -36,7 +36,7 @@ function MoneyField({
           placeholder="0.00"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="input pl-9 text-lg"
+          className="input pl-9 text-lg font-extrabold"
         />
       </div>
     </div>
@@ -62,7 +62,6 @@ export default function SetupPage() {
     setLoading(true)
     try {
       await completeSetup(uid, cashVal, onlineVal)
-      // SetupGate redirects to /home once the profile flag updates.
     } catch (err) {
       console.error('completeSetup failed:', err)
       setError('Could not save your balance. Please try again.')
@@ -71,37 +70,37 @@ export default function SetupPage() {
   }
 
   return (
-    <div className="app-shell min-h-screen px-margin pb-10 pt-12">
+    <div className="app-shell min-h-screen px-margin pb-10 pt-12 bg-[#FDFBF7]">
       <div className="text-center">
-        <h1 className="text-headline-mobile text-primary">Let's set up your Kharcha</h1>
-        <p className="mt-3 text-body-lg text-on-surface-variant">
+        <h1 className="text-3xl font-black text-black">Let's set up your Kharcha</h1>
+        <p className="mt-3 text-base font-bold text-gray-700">
           Add your current balance to start tracking accurately.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 flex flex-1 flex-col">
-        <div className="card flex flex-col gap-6 p-5">
+        <div className="bg-white border-[2.5px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000000] flex flex-col gap-6">
           <MoneyField
             id="cash"
             label="Current Cash Savings"
-            icon={<Banknote className="h-6 w-6" />}
+            icon={<Banknote className="h-6 w-6" strokeWidth={2.5} />}
             value={cash}
             onChange={setCash}
           />
           <MoneyField
             id="online"
             label="Current Online/Bank Savings"
-            icon={<Building2 className="h-6 w-6" />}
+            icon={<Building2 className="h-6 w-6" strokeWidth={2.5} />}
             value={online}
             onChange={setOnline}
           />
-          <div className="flex items-start gap-2 rounded-lg bg-surface-container-high p-3 text-body-sm text-on-surface-variant">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+          <div className="flex items-start gap-2 rounded-xl border-2 border-black bg-[#FFD200] p-3 text-xs font-bold text-black shadow-[2px_2px_0px_#000000]">
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-black" strokeWidth={2.5} />
             This helps keep your totals accurate from day one.
           </div>
         </div>
 
-        {error && <p className="mt-4 text-body-sm text-error">{error}</p>}
+        {error && <p className="mt-4 text-sm font-bold text-[#FF5A36]">{error}</p>}
 
         <Button type="submit" loading={loading} className="mt-auto">
           Confirm

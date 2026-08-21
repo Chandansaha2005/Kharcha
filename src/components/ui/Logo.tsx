@@ -1,18 +1,18 @@
 import { Wallet } from 'lucide-react'
 import { cn } from '../../utils/cn'
 
-/** Kharcha brand mark: chunky orange wallet glyph inside a bordered pixel box. */
-export function Logo({ size = 96, className }: { size?: number; className?: string }) {
+/** Kharcha brand mark: Mint Green wallet glyph container with 3px black border & 6px shadow. */
+export function Logo({ size = 80, className }: { size?: number; className?: string }) {
   return (
     <div
       className={cn(
-        'relative flex items-center justify-center border-[3px] border-primary bg-surface-container',
+        'relative flex items-center justify-center bg-[#10B981] border-[3px] border-black rounded-2xl shadow-[6px_6px_0px_#000000]',
         className,
       )}
-      style={{ width: size, height: size, boxShadow: '6px 6px 0 0 #000' }}
+      style={{ width: size, height: size }}
     >
       <Wallet
-        className="text-primary"
+        className="text-black"
         style={{ width: size * 0.5, height: size * 0.5 }}
         strokeWidth={2.5}
       />

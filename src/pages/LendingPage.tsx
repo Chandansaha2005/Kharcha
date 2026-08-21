@@ -24,14 +24,14 @@ export default function LendingPage() {
       <ScreenHeader onBack={() => navigate('/home')} />
 
       <div className="mt-2">
-        <h1 className="text-headline-mobile text-primary">Lending</h1>
-        <p className="mt-1 text-body-lg text-on-surface-variant">Track money you gave to others</p>
+        <h1 className="text-2xl font-black text-black">Lending</h1>
+        <p className="mt-1 text-sm font-bold text-gray-700">Track money you gave to others</p>
       </div>
 
       {notice && (
         <div
           role="status"
-          className="mt-4 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-body-sm text-primary"
+          className="mt-4 rounded-xl border-2 border-black bg-[#FFD200] px-4 py-3 text-sm font-bold text-black shadow-[3px_3px_0px_#000000]"
         >
           {notice}
         </div>
@@ -42,11 +42,11 @@ export default function LendingPage() {
       </div>
 
       <div className="mt-7">
-        <h2 className="mb-3 text-title-md font-semibold text-on-surface">Current Lendings</h2>
+        <h2 className="mb-3 text-xl font-black text-black">Current Lendings</h2>
         {lendings.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-outline-variant py-10 text-center">
-            <HandCoins className="h-8 w-8 text-on-surface-variant" />
-            <p className="text-body-sm text-on-surface-variant">
+          <div className="flex flex-col items-center gap-3 bg-white border-2 border-dashed border-black rounded-2xl py-10 px-4 text-center shadow-[3px_3px_0px_#000000]">
+            <HandCoins className="h-8 w-8 text-black" strokeWidth={2.5} />
+            <p className="text-xs font-bold text-gray-600">
               No lendings yet. Add one above to start tracking.
             </p>
           </div>

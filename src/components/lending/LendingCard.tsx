@@ -35,23 +35,23 @@ export function LendingCard({
   }
 
   return (
-    <div className={cn('card flex flex-col gap-4', returned && 'opacity-60')}>
+    <div className={cn('bg-white border-[2.5px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000000] flex flex-col gap-4', returned && 'opacity-70')}>
       <div className="flex items-center gap-3">
         <Avatar name={lending.personName} size={44} />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-body-lg font-semibold text-on-surface">{lending.personName}</p>
-          <p className="text-body-sm text-on-surface-variant">
+          <p className="truncate text-base font-extrabold text-black">{lending.personName}</p>
+          <p className="text-xs font-semibold text-gray-600">
             Due {formatDate(lending.dueDate)} · {typeLabel}
           </p>
         </div>
         <div className="flex flex-col items-end gap-1.5">
-          <span className="text-body-lg font-bold text-secondary">{formatINR(lending.amount)}</span>
+          <span className="text-base font-black text-[#FF5A36]">{formatINR(lending.amount)}</span>
           <span
             className={cn(
-              'chip',
+              'border-2 border-black rounded-full px-3 py-1 text-xs font-bold',
               returned
-                ? 'border-primary bg-primary/15 text-primary'
-                : 'border-secondary bg-secondary/15 text-secondary',
+                ? 'bg-[#10B981] text-black'
+                : 'bg-[#FFD200] text-black shadow-[2px_2px_0px_#000000]',
             )}
           >
             {returned ? 'Returned' : 'Pending'}
@@ -60,8 +60,8 @@ export function LendingCard({
       </div>
 
       {returned ? (
-        <div className="flex items-center gap-2 text-body-sm text-primary">
-          <CheckCircle2 className="h-4 w-4" />
+        <div className="flex items-center gap-2 text-sm font-bold text-[#10B981]">
+          <CheckCircle2 className="h-4 w-4" strokeWidth={2.5} />
           Repaid
         </div>
       ) : (
@@ -69,9 +69,9 @@ export function LendingCard({
           type="button"
           onClick={() => setConfirming(true)}
           disabled={working}
-          className="flex h-11 w-full items-center justify-center gap-2 bg-primary text-body-sm font-semibold text-on-primary transition-transform active:scale-[0.98] disabled:opacity-50"
+          className="flex h-11 w-full items-center justify-center gap-2 bg-[#2B52FF] text-white border-2 border-black rounded-full px-4 py-2 font-bold shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50"
         >
-          <Check className="h-4 w-4" />
+          <Check className="h-4 w-4" strokeWidth={2.5} />
           Mark Returned
         </button>
       )}

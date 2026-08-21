@@ -24,14 +24,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         <input
           ref={ref}
           id={inputId}
-          className={cn('input', trailing ? 'pr-12' : '', error && 'border-error/60', className)}
+          className={cn('input', trailing ? 'pr-12' : '', error && 'border-[#FF5A36]', className)}
           {...props}
         />
         {trailing && (
-          <div className="absolute inset-y-0 right-3 flex items-center">{trailing}</div>
+          <div className="absolute inset-y-0 right-3 flex items-center text-black">{trailing}</div>
         )}
       </div>
-      {error && <p className="mt-1.5 text-body-sm text-error">{error}</p>}
+      {error && <p className="mt-1.5 text-sm font-bold text-[#FF5A36]">{error}</p>}
     </div>
   )
 })

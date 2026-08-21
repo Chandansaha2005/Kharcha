@@ -21,7 +21,6 @@ export default function SignInPage() {
     setLoading(true)
     try {
       await signInWithEmail(email.trim(), password)
-      // Guards will route to /home or /setup once auth state propagates.
     } catch (err) {
       setError(authErrorMessage(err))
     } finally {
@@ -43,11 +42,11 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="app-shell min-h-screen px-margin pb-10 pt-4">
+    <div className="app-shell min-h-screen px-margin pb-10 pt-4 bg-[#FDFBF7]">
       <ScreenHeader />
       <div className="mt-6">
-        <h1 className="text-headline-mobile text-on-surface">Welcome Back</h1>
-        <p className="mt-2 text-body-lg text-on-surface-variant">
+        <h1 className="text-2xl font-black text-black">Welcome Back</h1>
+        <p className="mt-2 text-sm font-bold text-gray-700">
           Sign in to manage your finances securely.
         </p>
       </div>
@@ -65,7 +64,7 @@ export default function SignInPage() {
         />
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-label-caps uppercase text-on-surface-variant">Password</span>
+            <span className="field-label">Password</span>
           </div>
           <Input
             name="password"
@@ -80,15 +79,15 @@ export default function SignInPage() {
                 type="button"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
                 onClick={() => setShowPassword((s) => !s)}
-                className="text-on-surface-variant"
+                className="text-black"
               >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                {showPassword ? <EyeOff className="h-5 w-5" strokeWidth={2.5} /> : <Eye className="h-5 w-5" strokeWidth={2.5} />}
               </button>
             }
           />
         </div>
 
-        {error && <p className="text-body-sm text-error">{error}</p>}
+        {error && <p className="text-sm font-bold text-[#FF5A36]">{error}</p>}
 
         <Button type="submit" loading={loading} className="mt-2">
           Continue
@@ -96,9 +95,9 @@ export default function SignInPage() {
       </form>
 
       <div className="my-7 flex items-center gap-4">
-        <div className="h-px flex-1 bg-outline-variant" />
-        <span className="text-label-caps uppercase text-on-surface-variant">OR</span>
-        <div className="h-px flex-1 bg-outline-variant" />
+        <div className="h-[2px] flex-1 bg-black" />
+        <span className="text-xs font-black text-black">OR</span>
+        <div className="h-[2px] flex-1 bg-black" />
       </div>
 
       <Button variant="ghost" onClick={handleGoogle} loading={googleLoading}>
@@ -106,9 +105,9 @@ export default function SignInPage() {
         Google sign-in
       </Button>
 
-      <p className="mt-auto pt-8 text-center text-body-lg text-on-surface-variant">
+      <p className="mt-auto pt-8 text-center text-sm font-bold text-gray-700">
         Don't have an account?{' '}
-        <Link to="/signup" className="font-bold text-primary">
+        <Link to="/signup" className="font-black text-black underline underline-offset-2">
           Sign Up
         </Link>
       </p>

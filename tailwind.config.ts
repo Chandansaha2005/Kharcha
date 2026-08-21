@@ -1,75 +1,76 @@
 import type { Config } from 'tailwindcss'
 
 /**
- * RETRO ARCADE theme — black canvas, arcade-orange accent, white text.
- * Hard edges (no rounding), chunky borders, and hard offset shadows give the
- * "pixel box / raised console button" look. Token NAMES are unchanged from the
- * original design so all pages re-skin automatically.
+ * NEUBRUTALISM design system:
+ * - High-contrast palette: Soft Pastel Cream (#FDFBF7), Electric Yellow (#FFD200), Royal Blue (#2B52FF), Mint Green (#10B981), Coral Red (#FF5A36)
+ * - Heavy black borders (2px - 3px solid black)
+ * - Zero-blur hard offset shadows (2px, 3px, 4px, 6px)
+ * - Clean geometric sans-serif fonts
  */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        background: '#0a0a0a',
+        background: '#FDFBF7',
         surface: {
-          DEFAULT: '#0a0a0a',
-          dim: '#0a0a0a',
-          bright: '#383838',
-          'container-lowest': '#050505',
-          'container-low': '#121212',
-          container: '#161616',
-          'container-high': '#202020',
-          'container-highest': '#2a2a2a',
-          variant: '#202020',
+          DEFAULT: '#FFFFFF',
+          dim: '#F3F4F6',
+          bright: '#FFFFFF',
+          'container-lowest': '#FFFFFF',
+          'container-low': '#FFFFFF',
+          container: '#FFFFFF',
+          'container-high': '#F9FAFB',
+          'container-highest': '#F3F4F6',
+          variant: '#E5E7EB',
         },
-        'on-surface': '#f5f5f5',
-        'on-surface-variant': '#9a9a9a',
+        'on-surface': '#000000',
+        'on-surface-variant': '#4B5563',
         outline: {
-          DEFAULT: '#3a3a3a',
-          variant: '#262626',
+          DEFAULT: '#000000',
+          variant: '#000000',
         },
         primary: {
-          DEFAULT: '#ff7a1a', // arcade orange
-          container: '#cc5e10',
-          fixed: '#ff8c3a',
-          'fixed-dim': '#e06a14',
+          DEFAULT: '#FFD200', // Electric Yellow
+          container: '#FFD200',
+          fixed: '#FFE043',
+          'fixed-dim': '#E6BE00',
         },
-        'on-primary': '#0a0a0a',
+        'on-primary': '#000000',
         secondary: {
-          DEFAULT: '#ff3b22', // arcade danger / expenses
-          container: '#7a1a10',
+          DEFAULT: '#2B52FF', // Royal Blue
+          container: '#2B52FF',
         },
-        'on-secondary': '#0a0a0a',
+        'on-secondary': '#FFFFFF',
         error: {
-          DEFAULT: '#ff3b22',
-          container: '#7a1a10',
+          DEFAULT: '#FF5A36', // Coral Red
+          container: '#FF5A36',
         },
-        'on-error': '#0a0a0a',
+        'on-error': '#FFFFFF',
+        mint: '#10B981',
+        coral: '#FF5A36',
       },
       fontFamily: {
-        // Default body font: VT323 — a compact, highly readable pixel/terminal face.
-        sans: ['VT323', 'ui-monospace', 'monospace'],
-        // Display/accent: Press Start 2P — chunky 8-bit lettering (use at small sizes).
-        pixel: ['"Press Start 2P"', 'VT323', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        pixel: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // VT323 reads small for its px size, so the scale runs a bit larger than usual.
-        'display-lg': ['56px', { lineHeight: '56px' }],
-        'headline-lg': ['40px', { lineHeight: '44px' }],
-        'headline-mobile': ['34px', { lineHeight: '36px' }],
-        'title-md': ['26px', { lineHeight: '30px' }],
-        'body-lg': ['20px', { lineHeight: '26px' }],
-        'body-sm': ['18px', { lineHeight: '22px' }],
-        'label-caps': ['11px', { lineHeight: '16px', letterSpacing: '0.08em' }],
+        'display-lg': ['44px', { lineHeight: '48px' }],
+        'headline-lg': ['32px', { lineHeight: '36px' }],
+        'headline-mobile': ['28px', { lineHeight: '32px' }],
+        'title-md': ['20px', { lineHeight: '24px' }],
+        'body-lg': ['16px', { lineHeight: '22px' }],
+        'body-sm': ['14px', { lineHeight: '18px' }],
+        'label-caps': ['11px', { lineHeight: '16px', letterSpacing: '0.05em' }],
       },
       borderRadius: {
-        sm: '0',
-        DEFAULT: '0',
-        md: '0',
-        lg: '0',
-        xl: '0',
-        full: '0',
+        sm: '0.375rem',
+        DEFAULT: '0.5rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '0.75rem',
+        '2xl': '1rem',
+        full: '9999px',
       },
       spacing: {
         gutter: '16px',
@@ -80,15 +81,11 @@ export default {
         app: '480px',
       },
       boxShadow: {
-        // Hard, blur-less offset shadows = pixel/console depth.
-        pixel: '4px 4px 0 0 #000000',
-        'pixel-sm': '3px 3px 0 0 #000000',
-        'pixel-orange': '4px 4px 0 0 #cc5e10',
-        modal: '8px 8px 0 0 #000000',
-        'glow-primary': '0 0 0 0 transparent',
-      },
-      backdropBlur: {
-        nav: '2px',
+        pixel: '4px 4px 0px #000000',
+        'pixel-sm': '3px 3px 0px #000000',
+        'pixel-xs': '2px 2px 0px #000000',
+        'pixel-lg': '6px 6px 0px #000000',
+        modal: '6px 6px 0px #000000',
       },
     },
   },

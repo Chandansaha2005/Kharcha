@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
 
 /**
- * Modal confirmation dialog in the retro-arcade style (hard edges, pixel shadow).
- * Backdrop tap and Escape both cancel; `busy` locks every way out while a
- * write is in flight so the action can't be dismissed or double-fired.
+ * Modal confirmation dialog in the Neubrutalism style (white card, 3px solid black border, hard 6px shadow).
  */
 export function ConfirmDialog({
   open,
@@ -44,17 +42,17 @@ export function ConfirmDialog({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="w-full max-w-sm border-2 border-outline bg-surface-container p-5 shadow-modal"
+        className="w-full max-w-sm bg-white border-[3px] border-black rounded-2xl p-6 shadow-[6px_6px_0px_#000000]"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-title-md font-semibold text-on-surface">{title}</h2>
-        <p className="mt-2 text-body-sm text-on-surface-variant">{message}</p>
-        <div className="mt-5 flex gap-3">
+        <h2 className="text-xl font-black text-black">{title}</h2>
+        <p className="mt-2 text-sm font-semibold text-gray-800">{message}</p>
+        <div className="mt-6 flex gap-3">
           <button
             type="button"
             onClick={onCancel}
             disabled={busy}
-            className="flex h-11 flex-1 items-center justify-center bg-surface-container-high text-body-sm font-semibold text-on-surface transition-transform active:scale-[0.98] disabled:opacity-50"
+            className="flex h-12 flex-1 items-center justify-center rounded-full border-2 border-black bg-gray-100 font-bold text-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50"
           >
             Cancel
           </button>
@@ -62,7 +60,7 @@ export function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={busy}
-            className="flex h-11 flex-1 items-center justify-center bg-primary text-body-sm font-semibold text-on-primary transition-transform active:scale-[0.98] disabled:opacity-50"
+            className="flex h-12 flex-1 items-center justify-center rounded-full border-2 border-black bg-[#FFD200] font-black text-black shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50"
           >
             {confirmLabel}
           </button>
