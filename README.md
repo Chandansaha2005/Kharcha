@@ -1,282 +1,153 @@
-# 💰 Kharcha - Personal Expense Tracker
+# Kharcha — Personal Savings Tracker PWA
 
-![Kharcha Icon](./frontend/public/icon.png)
+![Kharcha Banner](/icons/hero.png)
 
-Kharcha is a modern, full-stack personal expense tracking web application designed to help you manage your finances with ease. Track your spending, monitor income, categorize transactions, and get daily financial summaries right in your inbox. Built with cutting-edge technologies for a seamless user experience on both desktop and mobile devices.
-
-## ✨ Features
-
-### 💳 Transaction Management
-- **Add Transactions** - Easily add expenses and income with a user-friendly interface
-- **Categorize Spending** - Organize transactions into predefined categories (Food, Transport, Entertainment, Health, Shopping, Education, Other)
-- **Transaction History** - View all transactions with dates, amounts, categories, and descriptions
-- **Quick Add** - Fast transaction entry with keyboard shortcuts and recent category suggestions
-- **Edit & Delete** - Modify or remove transactions as needed
-
-### 📊 Dashboard & Analytics
-- **Real-Time Balance** - View your current balance updated instantly
-- **Monthly Overview** - See this month's income and expense at a glance
-- **Category Breakdown** - Visual pie charts showing spending by category
-- **Weekly Comparison** - Track weekly spending trends and patterns
-- **Frequent Spending** - Identify your most common expenses
-- **Spending Charts** - Interactive charts showing spending distribution
-
-### 📅 Calendar View
-- **Daily Breakdown** - Click any date to see that day's transactions
-- **Visual Calendar** - Color-coded dates showing income and expense activity
-- **Month Navigation** - Switch between months to view historical data
-- **Day Details** - Detailed view of all transactions for a specific day
-
-### 💌 Email Features
-- **Daily Summaries** - Automatic email with daily expense summary at 10:00 PM IST
-- **Income Reminders** - Get notified about recurring income at 9:00 AM IST
-- **Scheduled Reports** - Never miss your financial overview with automated emails
-
-### 🔐 Authentication & Security
-- **Magic Link Authentication** - Secure login via email (no passwords to remember)
-- **JWT Tokens** - Secure API endpoints with JSON Web Tokens
-- **Private Accounts** - Only authorized email can access the application
-- **Session Management** - Automatic logout and session handling
-
-### 📱 User Experience
-- **Responsive Design** - Works perfectly on mobile, tablet, and desktop
-- **Progressive Web App** - Install as an app on your device
-- **Dark Theme** - Eye-friendly dark interface for comfortable viewing
-- **Smooth Animations** - Elegant transitions and loading states
-- **Loading Skeletons** - Beautiful loading indicators while data fetches
-- **Toast Notifications** - Real-time feedback for all user actions
-
-### 🎯 Additional Features
-- **Pending Expenses** - Mark expenses as pending and track them separately
-- **Income Management** - Track income sources and recurring payments
-- **Search & Filter** - Find transactions quickly with search functionality
-- **Export Data** - View and track your financial history
-- **Offline Support** - App works offline with cached data
-
-## 📁 Project Structure
-
-```
-Kharcha/
-├── backend/                    # Node.js + Express API
-│   ├── src/
-│   │   ├── app.js             # Express app configuration
-│   │   ├── controllers/        # Route handlers
-│   │   ├── models/            # MongoDB schemas
-│   │   ├── routes/            # API endpoints
-│   │   ├── middleware/        # Auth & validation
-│   │   ├── services/          # Business logic
-│   │   └── utils/             # Helper functions
-│   ├── .env.local.example     # Backend config template
-│   └── server.js              # Server entry point
-│
-├── frontend/                   # React + Vite application
-│   ├── src/
-│   │   ├── components/        # Reusable React components
-│   │   ├── pages/            # Page components
-│   │   ├── hooks/            # Custom React hooks
-│   │   ├── store/            # State management
-│   │   ├── api/              # API client
-│   │   ├── utils/            # Utilities & formatters
-│   │   └── App.jsx           # Main app component
-│   ├── public/               # Static assets
-│   ├── .env.local.example    # Frontend config template
-│   └── vite.config.js        # Vite configuration
-│
-└── README.md                  # This file
-```
-
-## 🚀 Installation & Setup
-
-### Prerequisites
-Before you begin, ensure you have the following installed:
-- **Node.js** v18 or higher ([Download](https://nodejs.org/))
-- **MongoDB** ([MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or local installation)
-- **Git** for cloning the repository
-- **Gmail Account** (for email features)
-
-### Step 1: Clone the Repository
-```bash
-git clone <repository-url>
-cd Kharcha
-```
-
-### Step 2: Backend Setup
-
-Navigate to the backend directory:
-```bash
-cd backend
-npm install
-```
-
-Create a `.env.local` file in the `backend/` directory with the following variables:
-
-```env
-# MongoDB Configuration
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/kharcha
-
-# Gmail Configuration (for email features)
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-app-password
-
-# Application Settings
-OWNER_EMAIL=your-email@gmail.com
-JWT_SECRET=your-random-secret-key-minimum-32-characters
-
-# Server Configuration
-PORT=5000
-NODE_ENV=development
-```
-
-Start the backend server:
-```bash
-npm start
-```
-
-You should see: `MongoDB connected` and `Server running on port 5000`
-
-### Step 3: Frontend Setup
-
-Open a new terminal and navigate to the frontend directory:
-```bash
-cd frontend
-npm install
-```
-
-Create a `.env.local` file in the `frontend/` directory:
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-Start the development server:
-```bash
-npm run dev
-```
-
-The application will open at `http://localhost:5174`
-
-### Step 4: First Login
-
-1. Open the application in your browser
-2. Enter the email address you set in `OWNER_EMAIL`
-3. Check your inbox for a magic link
-4. Click the link to log in
-5. Start tracking your expenses!
-
-## 📋 Environment Variables
-
-### Backend Configuration (.env.local)
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `MONGODB_URI` | MongoDB connection string | `mongodb+srv://user:pass@cluster.mongodb.net/kharcha` |
-| `EMAIL_USER` | Gmail address for sending emails | `your-email@gmail.com` |
-| `EMAIL_PASS` | Gmail app password (not regular password) | `abcd efgh ijkl mnop` |
-| `OWNER_EMAIL` | Email address that can access the app | `your-email@gmail.com` |
-| `JWT_SECRET` | Secret key for JWT tokens (min 32 chars) | `your-random-secret-key-123456789` |
-| `PORT` | Server port | `5000` |
-| `NODE_ENV` | Environment mode | `development` |
-
-### Frontend Configuration (.env.local)
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `VITE_API_URL` | Backend API URL | `http://localhost:5000/api` |
-
-## 🔐 Security & Setup Tips
-
-### Gmail App Password
-1. Enable 2-Factor Authentication on your Gmail account
-2. Go to [Google Account Security](https://myaccount.google.com/security)
-3. Find "App passwords" and create a new app password for "Mail"
-4. Use this 16-character password as `EMAIL_PASS` (remove spaces)
-
-### JWT Secret
-Generate a secure JWT secret:
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-
-### Important Notes
-- ⚠️ Only the email in `OWNER_EMAIL` can log in
-- ⚠️ Never commit `.env.local` files to git
-- ⚠️ Keep `JWT_SECRET` private and secure
-- ⚠️ Use strong, unique secrets for production
-
-## ⏰ Scheduled Tasks
-
-The application includes automated email features:
-
-- **10:00 PM IST** - Daily expense summary email with:
-  - Total daily spending
-  - Category breakdown
-  - Comparison with previous day
-  
-- **9:00 AM IST** - Recurring income reminders:
-  - Upcoming income notifications
-  - Payment reminders
-
-## 📱 Tech Stack
-
-### Backend
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - Database ODM
-- **JWT** - Authentication
-- **Nodemailer** - Email service
-- **Node-cron** - Task scheduling
-
-### Frontend
-- **React 18** - UI library
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **React Query** - Data fetching
-- **Axios** - HTTP client
-- **Lucide React** - Icons
-- **Date-fns** - Date utilities
-
-## 🚀 Available Scripts
-
-### Backend
-```bash
-npm start       # Start production server
-npm run dev    # Start development server with nodemon
-```
-
-### Frontend
-```bash
-npm run dev    # Start development server
-npm run build  # Build for production
-npm run preview # Preview production build
-```
-
-## 🐛 Troubleshooting
-
-### Port Already in Use
-If port 5000 or 5173 is already in use, you can change it:
-- Backend: Modify `PORT` in `.env.local`
-- Frontend: Vite will automatically use the next available port
-
-### MongoDB Connection Error
-- Ensure MongoDB is running
-- Check connection string in `.env.local`
-- Verify IP whitelist in MongoDB Atlas (allow 0.0.0.0/0 for development)
-
-### Emails Not Sending
-- Verify Gmail app password (not regular password)
-- Ensure 2FA is enabled on Gmail
-- Check OWNER_EMAIL is correct
-- Verify firewall allows outgoing SMTP connections
-
-### CORS Issues
-- Ensure `VITE_API_URL` matches your backend URL
-- Check backend CORS settings if modified
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests.
+**Kharcha** is a modern, high-contrast, mobile-first **Personal Savings Tracker Progressive Web App (PWA)** built with a bold **Neubrutalism Design System**. It allows users to track total savings split between **Cash** and **Online/Bank** accounts, record income and expenses atomically, monitor money lent to others, view financial activity on an interactive calendar, and install the app to their home screen.
 
 ---
 
-**Happy tracking! 💵**
+## ✨ Key Features
+
+### 🎨 Neubrutalism Design System
+- **High-Contrast Color Palette**: Soft Pastel Cream canvas (`#FDFBF7`), Electric Yellow (`#FFD200`), Royal Blue (`#2B52FF`), Mint Green (`#10B981`), and Coral Red (`#FF5A36`).
+- **Tactile UI Elements**: 2.5px – 3px solid pitch-black borders, zero-blur hard offset drop shadows (`4px 4px 0px #000000`), and crisp Google Montserrat typography.
+- **Micro-Interactions**: Active press translation effects on buttons, cards, and floating navigation components.
+
+### 💳 Savings & Account Management
+- **First-Time Setup**: Initial setup screen to configure starting Cash and Online/Bank balances.
+- **Privacy Masking**: Instant privacy toggle (`Eye / EyeOff`) on the main dashboard to conceal sensitive balance values (`₹ ****`).
+- **Account Splits**: Separate tracking for physical cash and online bank accounts.
+
+### 📊 Dashboard & History (`/home`)
+- **Real-Time Synchronization**: Live Firestore listeners automatically reflect balance mutations across devices.
+- **Quick Action Bar**: Fast entry for Income, Expenses, and Lending.
+- **Grouped Transaction Feed**: Itemized activity sorted chronologically and grouped by month with payment method tags (`CASH` / `ONLINE`).
+
+### 📅 Interactive Calendar View (`/calendar`)
+- **Monthly Overview**: Month switcher with monthly total saved (`+₹Amount` in Mint Green) and total spent (`-₹Amount` in Coral Red).
+- **Daily Micro-Amounts**: Calendar grid displaying day numbers alongside mini daily saved/spent tallies.
+- **Date Filtering**: Click any date cell to filter and inspect transactions recorded on that specific date.
+
+### 💸 Lending Tracker (`/lending`)
+- **Track Money Lent**: Record money lent to others with target due dates and account source.
+- **Atomic Returns**: Mark lendings as returned to automatically credit funds back to the chosen account.
+- **Status Badges**: Visual indicators for `Pending` and `Returned` items.
+
+### 📱 Floating 5-Button Navigation Bar
+- **Floating Bottom Nav**: Neubrutalist floating bar anchored near the bottom containing `Home`, `Calendar`, center oversized floating FAB `Add`, `Lending`, and `Profile`.
+- **Progressive Web App (PWA)**: Full offline service worker shell and web manifest support for native installation.
+
+---
+
+## 🏗 Tech Stack
+
+- **Frontend Framework**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS v3 + Custom Neubrutalism Tokens
+- **Typography**: Google Montserrat (`wght@600;700;800;900`)
+- **Backend & Database**: Firebase Authentication + Cloud Firestore
+- **PWA Tooling**: `vite-plugin-pwa` + Workbox Service Worker
+- **Iconography**: Lucide React
+
+---
+
+## 📁 Project Structure
+
+```text
+Kharcha-Pani/
+├── public/
+│   ├── favicon.svg             # App favicon
+│   ├── manifest.webmanifest    # PWA web app manifest
+│   └── icons/                  # PWA app icons & hero illustration (hero.png)
+├── src/
+│   ├── components/
+│   │   ├── auth/               # Route guards (ProtectedRoute, SetupGate, PublicOnlyRoute)
+│   │   ├── dashboard/          # QuickActions, TransactionItem, MonthDivider
+│   │   ├── layout/             # AppLayout, BottomNav (Floating 5-Button Navbar)
+│   │   ├── lending/            # AddLendingForm, LendingCard
+│   │   └── ui/                 # Neubrutal UI primitives (Button, Input, Logo, Avatar, etc.)
+│   ├── context/                # AuthContext (Firebase auth state & profile snapshot)
+│   ├── hooks/                  # Custom live Firestore hooks (useBalance, useTransactions, useLendings)
+│   ├── lib/                    # Firebase SDK initialization (firebase.ts)
+│   ├── pages/                  # WelcomePage, SignInPage, SignUpPage, SetupPage, DashboardPage, CalendarPage, AddTransactionPage, LendingPage, ProfilePage
+│   ├── services/               # Atomic Firestore transactions & Auth operations
+│   ├── utils/                  # Formatting helpers & CSS class merge utility (cn.ts)
+│   ├── App.tsx                 # React Router routing configuration
+│   ├── index.css               # Global Neubrutal styling & Montserrat font imports
+│   └── main.tsx                # Application entry point
+├── firestore.rules             # Firestore security rules (per-user data isolation)
+├── firebase.json               # Firebase hosting & Firestore deployment configuration
+├── tailwind.config.ts          # Tailwind CSS theme extension & design tokens
+├── tsconfig.json               # TypeScript compiler options
+├── vite.config.ts              # Vite + PWA build plugin setup
+└── package.json                # Project dependencies and npm scripts
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Node.js** v18 or higher ([Download](https://nodejs.org/))
+- **npm** or **yarn**
+- **Firebase Project** with Email/Password authentication and Firestore database enabled.
+
+### 1. Clone & Install Dependencies
+```bash
+git clone <repository-url>
+cd Kharcha-Pani
+npm install
+```
+
+### 2. Configure Environment Variables
+Copy `.env.example` to `.env` in the root directory:
+```bash
+cp .env.example .env
+```
+
+Fill in your Firebase Web App configuration credentials from the [Firebase Console](https://console.firebase.google.com/):
+
+```env
+VITE_FIREBASE_API_KEY=your-api-key
+VITE_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+VITE_FIREBASE_APP_ID=your-app-id
+VITE_FIREBASE_MEASUREMENT_ID=your-measurement-id
+```
+
+### 3. Deploy Firestore Security Rules (Optional / Recommended)
+Deploy the security rules so users can only access their own document scope:
+```bash
+firebase deploy --only firestore:rules
+```
+
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Open `http://localhost:5173` in your browser.
+
+---
+
+## 🛠 Available Scripts
+
+| Script | Command | Description |
+| :--- | :--- | :--- |
+| **`npm run dev`** | `vite` | Start the local Vite development server |
+| **`npm run build`** | `tsc -b && vite build` | Type-check TypeScript and build production PWA (`dist/`) |
+| **`npm run preview`** | `vite preview` | Serve the compiled production build locally |
+| **`npm run lint`** | `tsc --noEmit` | Perform TypeScript static type checking |
+
+---
+
+## 🔒 Security & Data Privacy
+
+- **Data Isolation**: All user data is keyed under `users/{uid}/*` in Firestore. Security rules enforce that `request.auth.uid == userId`.
+- **Atomic Operations**: All financial updates run inside Firestore `runTransaction` blocks to guarantee consistency between user balances and transaction records.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
