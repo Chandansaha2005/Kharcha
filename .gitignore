@@ -134,3 +134,52 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# build output
+dist
+dist-ssr
+*.local
+
+# env / secrets
+.env
+.env.local
+.env.*.local
+
+# editor / OS
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# PWA generated dev artifacts
+dev-dist
+
+# Playwright / test artifacts
+.playwright-mcp
+*.png.tmp
+
+# agent scratch (progress ledger etc.)
+.superpowers/
+
+# Firebase deploy cache
+.firebase/
+
+# TypeScript incremental build info
+tsconfig.tsbuildinfo
