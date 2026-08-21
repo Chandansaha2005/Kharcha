@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-[#FDFBF7] text-black antialiased;
+    font-family: 'Montserrat', sans-serif;
+    overscroll-behavior-y: none;
+    background-color: #FDFBF7;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply mx-auto flex min-h-full w-full max-w-app flex-col;
+  }
+
+  /* Neubrutal title wordmark */
+  .wordmark {
+    @apply font-black tracking-tight text-black;
+  }
+
+  /* --- Neubrutal tactile buttons --- */
+  .btn {
+    @apply inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap px-6
+           font-black text-sm uppercase tracking-tight transition-all duration-100
+           border-[2.5px] border-black rounded-full shadow-[3px_3px_0px_#000000]
+           hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#000000]
+           active:translate-x-[3px] active:translate-y-[3px] active:shadow-none
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-[#FFD200] text-black;
+  }
+  .btn-secondary {
+    @apply btn bg-[#2B52FF] text-white;
+  }
+  .btn-ghost {
+    @apply btn bg-white text-black;
+  }
+  .btn-danger {
+    @apply btn bg-[#FF5A36] text-white;
+  }
+  .btn-success {
+    @apply btn bg-[#10B981] text-black;
+  }
+
+  /* --- Neubrutal Cards & Inputs --- */
+  .card {
+    @apply bg-white border-[2.5px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000000];
+  }
+
+  .input {
+    @apply w-full bg-white border-[2.5px] border-black rounded-xl px-4 py-3 font-semibold text-black
+           placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000000] transition-all;
+  }
+
+  .field-label {
+    @apply mb-2 block font-extrabold text-xs uppercase tracking-wide text-black;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 border-2 border-black rounded-full px-3 py-1 font-bold text-xs shadow-[2px_2px_0px_#000000];
+  }
+}
