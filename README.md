@@ -4,8 +4,6 @@ Kharcha Pani is a mobile-first personal finance Progressive Web App for tracking
 
 The project focuses on quick daily entry, clear balance separation, real-time synced data, and an installable app-like experience for mobile users.
 
-![Kharcha Pani preview](public/icons/hero.png)
-
 ## Table of Contents
 
 - [Features](#features)
@@ -527,3 +525,5 @@ https://your-domain.com/Kharcha.apk
 ## License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
+
+![Kharcha Pani preview](public/icons/hero.png)
