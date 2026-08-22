@@ -1,110 +1,310 @@
-# Kharcha — Personal Savings Tracker PWA
+# Kharcha Pani
 
-![Kharcha Banner](/icons/hero.png)
+Kharcha Pani is a mobile-first personal finance Progressive Web App for tracking savings, spending, cash balance, online balance, and money lent to other people. It is built with React, TypeScript, Vite, Tailwind CSS, Firebase Authentication, Cloud Firestore, and PWA support.
 
-**Kharcha** is a modern, high-contrast, mobile-first **Personal Savings Tracker Progressive Web App (PWA)** built with a bold **Neubrutalism Design System**. It allows users to track total savings split between **Cash** and **Online/Bank** accounts, record income and expenses atomically, monitor money lent to others, view financial activity on an interactive calendar, and install the app to their home screen.
+The project focuses on quick daily entry, clear balance separation, real-time synced data, and an installable app-like experience for mobile users.
 
----
+![Kharcha Pani preview](public/icons/hero.png)
 
-## ✨ Key Features
+## Table of Contents
 
-### 🎨 Neubrutalism Design System
-- **High-Contrast Color Palette**: Soft Pastel Cream canvas (`#FDFBF7`), Electric Yellow (`#FFD200`), Royal Blue (`#2B52FF`), Mint Green (`#10B981`), and Coral Red (`#FF5A36`).
-- **Tactile UI Elements**: 2.5px – 3px solid pitch-black borders, zero-blur hard offset drop shadows (`4px 4px 0px #000000`), and crisp Google Montserrat typography.
-- **Micro-Interactions**: Active press translation effects on buttons, cards, and floating navigation components.
+- [Features](#features)
+- [APK Download](#apk-download)
+- [Tech Stack](#tech-stack)
+- [Application Flow](#application-flow)
+- [Code Structure](#code-structure)
+- [Firestore Data Model](#firestore-data-model)
+- [Setup Guide](#setup-guide)
+- [Firebase Setup](#firebase-setup)
+- [Available Scripts](#available-scripts)
+- [Build and Preview](#build-and-preview)
+- [Deployment](#deployment)
+- [Security Rules](#security-rules)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
-### 💳 Savings & Account Management
-- **First-Time Setup**: Initial setup screen to configure starting Cash and Online/Bank balances.
-- **Privacy Masking**: Instant privacy toggle (`Eye / EyeOff`) on the main dashboard to conceal sensitive balance values (`₹ ****`).
-- **Account Splits**: Separate tracking for physical cash and online bank accounts.
+## Features
 
-### 📊 Dashboard & History (`/home`)
-- **Real-Time Synchronization**: Live Firestore listeners automatically reflect balance mutations across devices.
-- **Quick Action Bar**: Fast entry for Income, Expenses, and Lending.
-- **Grouped Transaction Feed**: Itemized activity sorted chronologically and grouped by month with payment method tags (`CASH` / `ONLINE`).
+- User sign up and sign in with Firebase Authentication.
+- Google authentication support through Firebase Auth.
+- First-time profile setup with starting cash and online balances.
+- Separate balance tracking for cash and online or bank money.
+- Total balance calculation from both account types.
+- Add income entries.
+- Add expense entries.
+- Prevent expenses when the selected balance type has insufficient funds.
+- Real-time Firestore listeners for balance, transactions, profile, and lending data.
+- Transaction history grouped for dashboard reading.
+- Calendar view for inspecting transactions by date.
+- Lending tracker for money given to another person.
+- Mark lent money as returned and automatically add it back to the selected balance type.
+- Profile page with display name update support.
+- Protected routes for authenticated pages.
+- Setup gate to make sure a user completes first-time balance setup.
+- PWA manifest, app icons, service worker, and installable mobile experience.
+- Firebase Hosting configuration with SPA rewrites and production cache headers.
 
-### 📅 Interactive Calendar View (`/calendar`)
-- **Monthly Overview**: Month switcher with monthly total saved (`+₹Amount` in Mint Green) and total spent (`-₹Amount` in Coral Red).
-- **Daily Micro-Amounts**: Calendar grid displaying day numbers alongside mini daily saved/spent tallies.
-- **Date Filtering**: Click any date cell to filter and inspect transactions recorded on that specific date.
+## APK Download
 
-### 💸 Lending Tracker (`/lending`)
-- **Track Money Lent**: Record money lent to others with target due dates and account source.
-- **Atomic Returns**: Mark lendings as returned to automatically credit funds back to the chosen account.
-- **Status Badges**: Visual indicators for `Pending` and `Returned` items.
+An Android APK is included in the public assets:
 
-### 📱 Floating 5-Button Navigation Bar
-- **Floating Bottom Nav**: Neubrutalist floating bar anchored near the bottom containing `Home`, `Calendar`, center oversized floating FAB `Add`, `Lending`, and `Profile`.
-- **Progressive Web App (PWA)**: Full offline service worker shell and web manifest support for native installation.
+```text
+public/Kharcha.apk
+```
 
----
+When the app is deployed, the APK can be linked directly from the site as:
 
-## 🏗 Tech Stack
+```text
+/Kharcha.apk
+```
 
-- **Frontend Framework**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS v3 + Custom Neubrutalism Tokens
-- **Typography**: Google Montserrat (`wght@600;700;800;900`)
-- **Backend & Database**: Firebase Authentication + Cloud Firestore
-- **PWA Tooling**: `vite-plugin-pwa` + Workbox Service Worker
-- **Iconography**: Lucide React
+For example, if the app is hosted at `https://your-domain.com`, the APK download URL will be:
 
----
+```text
+https://your-domain.com/Kharcha.apk
+```
 
-## 📁 Project Structure
+Because the APK is inside `public`, Vite copies it into the production build root during `npm run build`.
+
+## Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| Frontend | React 18, TypeScript |
+| Build Tool | Vite |
+| Routing | React Router DOM |
+| Styling | Tailwind CSS |
+| Icons | Lucide React |
+| Authentication | Firebase Authentication |
+| Database | Cloud Firestore |
+| Analytics | Firebase Analytics, loaded only when supported |
+| PWA | vite-plugin-pwa, Workbox |
+| Image generation utility | Sharp for icon generation scripts |
+| Deployment | Firebase Hosting |
+
+## Application Flow
+
+1. Public users land on the welcome, sign in, or sign up screens.
+2. After authentication, the app listens to the user's Firestore profile document.
+3. If the profile is missing or incomplete, the app backfills identity data from Firebase Auth.
+4. If setup is not complete, the user is sent to the setup screen.
+5. Setup writes the user's starting cash and online balances and marks setup as complete.
+6. Authenticated and configured users can access the dashboard, add transaction page, calendar, lending page, and profile page.
+7. Balance-changing actions run through Firestore transactions or batches so balance totals stay consistent with activity records.
+
+## Code Structure
 
 ```text
 Kharcha-Pani/
-├── public/
-│   ├── favicon.svg             # App favicon
-│   ├── manifest.webmanifest    # PWA web app manifest
-│   └── icons/                  # PWA app icons & hero illustration (hero.png)
-├── src/
-│   ├── components/
-│   │   ├── auth/               # Route guards (ProtectedRoute, SetupGate, PublicOnlyRoute)
-│   │   ├── dashboard/          # QuickActions, TransactionItem, MonthDivider
-│   │   ├── layout/             # AppLayout, BottomNav (Floating 5-Button Navbar)
-│   │   ├── lending/            # AddLendingForm, LendingCard
-│   │   └── ui/                 # Neubrutal UI primitives (Button, Input, Logo, Avatar, etc.)
-│   ├── context/                # AuthContext (Firebase auth state & profile snapshot)
-│   ├── hooks/                  # Custom live Firestore hooks (useBalance, useTransactions, useLendings)
-│   ├── lib/                    # Firebase SDK initialization (firebase.ts)
-│   ├── pages/                  # WelcomePage, SignInPage, SignUpPage, SetupPage, DashboardPage, CalendarPage, AddTransactionPage, LendingPage, ProfilePage
-│   ├── services/               # Atomic Firestore transactions & Auth operations
-│   ├── utils/                  # Formatting helpers & CSS class merge utility (cn.ts)
-│   ├── App.tsx                 # React Router routing configuration
-│   ├── index.css               # Global Neubrutal styling & Montserrat font imports
-│   └── main.tsx                # Application entry point
-├── firestore.rules             # Firestore security rules (per-user data isolation)
-├── firebase.json               # Firebase hosting & Firestore deployment configuration
-├── tailwind.config.ts          # Tailwind CSS theme extension & design tokens
-├── tsconfig.json               # TypeScript compiler options
-├── vite.config.ts              # Vite + PWA build plugin setup
-└── package.json                # Project dependencies and npm scripts
++-- public/
+|   +-- Kharcha.apk
+|   +-- favicon.svg
+|   +-- maskable.svg
+|   +-- icons/
+|       +-- apple-touch-icon.png
+|       +-- hero.png
+|       +-- icon-192.png
+|       +-- icon-512.png
+|       +-- maskable-512.png
++-- scripts/
+|   +-- generate-icons.mjs
++-- src/
+|   +-- components/
+|   |   +-- auth/
+|   |   |   +-- Guards.tsx
+|   |   +-- dashboard/
+|   |   |   +-- MonthDivider.tsx
+|   |   |   +-- QuickActions.tsx
+|   |   |   +-- TransactionItem.tsx
+|   |   +-- layout/
+|   |   |   +-- AppLayout.tsx
+|   |   |   +-- BottomNav.tsx
+|   |   +-- lending/
+|   |   |   +-- AddLendingForm.tsx
+|   |   |   +-- LendingCard.tsx
+|   |   +-- ui/
+|   |       +-- Avatar.tsx
+|   |       +-- Button.tsx
+|   |       +-- ConfirmDialog.tsx
+|   |       +-- GoogleIcon.tsx
+|   |       +-- Input.tsx
+|   |       +-- Logo.tsx
+|   |       +-- Navbar.tsx
+|   |       +-- ScreenHeader.tsx
+|   |       +-- SegmentedControl.tsx
+|   |       +-- Spinner.tsx
+|   +-- context/
+|   |   +-- AuthContext.tsx
+|   +-- hooks/
+|   |   +-- useBalance.ts
+|   |   +-- useLendings.ts
+|   |   +-- useTransactions.ts
+|   +-- lib/
+|   |   +-- firebase.ts
+|   +-- pages/
+|   |   +-- AddTransactionPage.tsx
+|   |   +-- Calendar.tsx
+|   |   +-- CalendarPage.tsx
+|   |   +-- DashboardPage.tsx
+|   |   +-- LendingPage.tsx
+|   |   +-- ProfilePage.tsx
+|   |   +-- SetupPage.tsx
+|   |   +-- SignInPage.tsx
+|   |   +-- SignUpPage.tsx
+|   |   +-- WelcomePage.tsx
+|   +-- services/
+|   |   +-- auth.ts
+|   |   +-- errors.ts
+|   |   +-- lendings.ts
+|   |   +-- transactions.ts
+|   |   +-- user.ts
+|   +-- types/
+|   |   +-- index.ts
+|   +-- utils/
+|   |   +-- cn.ts
+|   |   +-- format.ts
+|   |   +-- sms.ts
+|   +-- App.tsx
+|   +-- index.css
+|   +-- main.tsx
+|   +-- vite-env.d.ts
++-- .env.example
++-- .firebaserc
++-- firebase.json
++-- firestore.rules
++-- index.html
++-- package.json
++-- tailwind.config.ts
++-- tsconfig.json
++-- tsconfig.node.json
++-- vite.config.ts
 ```
 
----
+### Important Files
 
-## 🚀 Getting Started
+| File | Purpose |
+| --- | --- |
+| `src/main.tsx` | React entry point. Mounts the app and global providers. |
+| `src/App.tsx` | Defines all application routes and route guards. |
+| `src/lib/firebase.ts` | Initializes Firebase App, Auth, Firestore, Google provider, and optional Analytics. |
+| `src/context/AuthContext.tsx` | Tracks Firebase auth state and the current user's profile document. |
+| `src/components/auth/Guards.tsx` | Controls public-only, protected, and setup-required routes. |
+| `src/services/auth.ts` | Handles email auth, Google auth, logout, profile creation, and auth error messages. |
+| `src/services/user.ts` | Handles user profile references, setup completion, profile backfill, and display name updates. |
+| `src/services/transactions.ts` | Adds income or expense records and updates balances atomically. |
+| `src/services/lendings.ts` | Adds lending records, deducts balances, and restores balances when returned. |
+| `src/hooks/useBalance.ts` | Subscribes to the current user's balance document. |
+| `src/hooks/useTransactions.ts` | Subscribes to transaction history. |
+| `src/hooks/useLendings.ts` | Subscribes to lending records. |
+| `firestore.rules` | Restricts users to their own Firestore document tree. |
+| `firebase.json` | Firebase Hosting, cache headers, SPA rewrites, and Firestore rules config. |
+| `vite.config.ts` | Vite React config and PWA manifest/service worker setup. |
+| `public/Kharcha.apk` | Android APK available as a static downloadable asset. |
 
-### Prerequisites
-- **Node.js** v18 or higher ([Download](https://nodejs.org/))
-- **npm** or **yarn**
-- **Firebase Project** with Email/Password authentication and Firestore database enabled.
+## Firestore Data Model
 
-### 1. Clone & Install Dependencies
+The app stores each user's data under their own `users/{uid}` namespace.
+
+```text
+users/{uid}
++-- id: string
++-- name: string
++-- email: string
++-- photoURL: string | null
++-- setupCompleted: boolean
++-- createdAt: Timestamp
++-- updatedAt: Timestamp
+```
+
+Balance is stored in a private document:
+
+```text
+users/{uid}/private/balance
++-- cashBalance: number
++-- onlineBalance: number
++-- totalBalance: number
++-- updatedAt: Timestamp
+```
+
+Transactions are stored as user-scoped documents:
+
+```text
+users/{uid}/transactions/{transactionId}
++-- mode: "increase" | "expense"
++-- amount: number
++-- title: string
++-- description: string
++-- type: "cash" | "online"
++-- date: number
++-- createdAt: Timestamp
+```
+
+Lending records are also user-scoped:
+
+```text
+users/{uid}/lendings/{lendingId}
++-- personName: string
++-- amount: number
++-- type: "cash" | "online"
++-- dueDate: number
++-- phoneNumber: string
++-- status: "pending" | "returned"
++-- createdAt: Timestamp
++-- returnedAt: Timestamp | null
+```
+
+## Setup Guide
+
+### 1. Prerequisites
+
+Install the following before running the project:
+
+- Node.js 18 or newer.
+- npm.
+- A Firebase project.
+- Firebase CLI if you want to deploy hosting or Firestore rules.
+
+Check your local versions:
+
+```bash
+node --version
+npm --version
+```
+
+Install Firebase CLI globally if needed:
+
+```bash
+npm install -g firebase-tools
+```
+
+### 2. Clone the Repository
+
 ```bash
 git clone <repository-url>
 cd Kharcha-Pani
+```
+
+### 3. Install Dependencies
+
+```bash
 npm install
 ```
 
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env` in the root directory:
+### 4. Create Environment File
+
+Copy the example environment file:
+
 ```bash
 cp .env.example .env
 ```
 
-Fill in your Firebase Web App configuration credentials from the [Firebase Console](https://console.firebase.google.com/):
+On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Fill in the Firebase web app values:
 
 ```env
 VITE_FIREBASE_API_KEY=your-api-key
@@ -116,38 +316,214 @@ VITE_FIREBASE_APP_ID=your-app-id
 VITE_FIREBASE_MEASUREMENT_ID=your-measurement-id
 ```
 
-### 3. Deploy Firestore Security Rules (Optional / Recommended)
-Deploy the security rules so users can only access their own document scope:
+The `.env` file is required because Vite only exposes variables that start with `VITE_`.
+
+### 5. Start Development Server
+
+```bash
+npm run dev
+```
+
+Open the local URL printed by Vite, usually:
+
+```text
+http://localhost:5173
+```
+
+## Firebase Setup
+
+### 1. Create a Firebase Project
+
+1. Open the Firebase Console.
+2. Create a new project or use an existing one.
+3. Register a Web App inside Project Settings.
+4. Copy the Firebase SDK configuration values into `.env`.
+
+### 2. Enable Authentication
+
+In Firebase Console:
+
+1. Go to Authentication.
+2. Open the Sign-in method tab.
+3. Enable Email/Password.
+4. Enable Google if you want Google sign-in to work.
+5. Add your deployed domain to the authorized domains list after deployment.
+
+### 3. Enable Firestore
+
+In Firebase Console:
+
+1. Go to Firestore Database.
+2. Create a database.
+3. Choose the production or test mode based on your workflow.
+4. Deploy this repository's `firestore.rules` before using production data.
+
+### 4. Connect Firebase CLI
+
+Login:
+
+```bash
+firebase login
+```
+
+Select or confirm the project:
+
+```bash
+firebase use kharcha-98d46
+```
+
+The repository already contains `.firebaserc` with this default project:
+
+```text
+kharcha-98d46
+```
+
+If you are using another Firebase project, update `.firebaserc` or run:
+
+```bash
+firebase use --add
+```
+
+## Available Scripts
+
+| Script | Command | Description |
+| --- | --- | --- |
+| `npm run dev` | `vite` | Starts the local development server. |
+| `npm run build` | `tsc -b && vite build` | Type-checks the project and creates a production build in `dist`. |
+| `npm run preview` | `vite preview` | Serves the production build locally. |
+| `npm run lint` | `tsc --noEmit` | Runs TypeScript validation without emitting files. |
+
+## Build and Preview
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+The compiled app is generated in:
+
+```text
+dist/
+```
+
+Static files from `public`, including `Kharcha.apk`, are copied into `dist` during the build.
+
+## Deployment
+
+The project is configured for Firebase Hosting.
+
+Build the project:
+
+```bash
+npm run build
+```
+
+Deploy hosting:
+
+```bash
+firebase deploy --only hosting
+```
+
+Deploy Firestore rules:
+
 ```bash
 firebase deploy --only firestore:rules
 ```
 
-### 4. Run Development Server
+Deploy both hosting and Firestore rules:
+
 ```bash
-npm run dev
+firebase deploy
 ```
-Open `http://localhost:5173` in your browser.
 
----
+Firebase Hosting serves `dist` as the public directory. The rewrite rule sends all routes to `index.html`, which allows React Router to handle client-side pages such as `/home`, `/calendar`, `/lending`, and `/profile`.
 
-## 🛠 Available Scripts
+## Security Rules
 
-| Script | Command | Description |
-| :--- | :--- | :--- |
-| **`npm run dev`** | `vite` | Start the local Vite development server |
-| **`npm run build`** | `tsc -b && vite build` | Type-check TypeScript and build production PWA (`dist/`) |
-| **`npm run preview`** | `vite preview` | Serve the compiled production build locally |
-| **`npm run lint`** | `tsc --noEmit` | Perform TypeScript static type checking |
+The Firestore rules restrict all reads and writes to the signed-in user's own path:
 
----
+```text
+users/{userId}/{document=**}
+```
 
-## 🔒 Security & Data Privacy
+Access is allowed only when:
 
-- **Data Isolation**: All user data is keyed under `users/{uid}/*` in Firestore. Security rules enforce that `request.auth.uid == userId`.
-- **Atomic Operations**: All financial updates run inside Firestore `runTransaction` blocks to guarantee consistency between user balances and transaction records.
+```text
+request.auth != null && request.auth.uid == userId
+```
 
----
+This means one user cannot read or write another user's profile, balance, transactions, or lending records.
 
-## 📄 License
+## PWA Notes
 
-This project is licensed under the MIT License.
+The PWA configuration lives in `vite.config.ts`.
+
+Key behavior:
+
+- App name: `Kharcha`.
+- Display mode: `standalone`.
+- Orientation: `portrait`.
+- Service worker registration: `autoUpdate`.
+- Offline shell support through Workbox.
+- App icons are stored in `public/icons`.
+- Firebase network calls are excluded from navigation fallback behavior.
+
+## Troubleshooting
+
+### Firebase configuration is missing
+
+Confirm `.env` exists and every required `VITE_FIREBASE_*` value is filled in.
+
+### Google sign-in popup closes or fails
+
+Check that Google sign-in is enabled in Firebase Authentication and that your current domain is listed under authorized domains.
+
+### Firestore permission denied
+
+Deploy the rules:
+
+```bash
+firebase deploy --only firestore:rules
+```
+
+Also confirm the user is signed in and data is stored under `users/{uid}`.
+
+### Production route refresh shows a 404
+
+Confirm Firebase Hosting is using the rewrite in `firebase.json`:
+
+```json
+{ "source": "**", "destination": "/index.html" }
+```
+
+### APK does not download after deployment
+
+Confirm the file exists at:
+
+```text
+public/Kharcha.apk
+```
+
+Then rebuild and redeploy:
+
+```bash
+npm run build
+firebase deploy --only hosting
+```
+
+The deployed URL should be:
+
+```text
+https://your-domain.com/Kharcha.apk
+```
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
